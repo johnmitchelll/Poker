@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta content="text/html;charset=utf-8" http-equiv="Content-Type">
+  <meta content="utf-8" http-equiv="encoding">
+  <title>Hands on Pathfinding Visual</title>
+</head>
+
+<body>
+	<div class="buttons">
+		<button onclick="initMaze()">Build a Maze</button>
+		<button onclick="initAStar()">Slove With A* Pathfinding</button>
+		<button onclick="initDijkstra()">Slove With Dijkstra's Pathfinding</button>
+		<button onclick="setUp()">Reset</button>
+	</div>
+
+
+<canvas id="gameCanvas" width="601" height="601"></canvas>
+
+<script src="js/Main.js"></script>
+<script src="js/Node.js"></script>
+<script src="js/Scan.js"></script>
+<script src="js/Graphics.js"></script>
+<script src="js/AStar.js"></script>
+<script src="js/Dijkstras.js"></script>
+<script src="js/Maze.js"></script>
+
+	<div>
+		<button onclick="changeBlockType()">Place: <span id="block"></span></button>
+	</div>
+
+</body>
+</hmtl>
+
+
