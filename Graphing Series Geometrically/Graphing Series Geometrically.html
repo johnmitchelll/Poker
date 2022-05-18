@@ -1,0 +1,174 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta content="text/html;charset=utf-8" http-equiv="Content-Type">
+  <meta content="utf-8" http-equiv="encoding">
+  <title>Graphing Series</title>
+  <link rel="icon" href="./icon.png" />
+</head>
+
+<style>
+  *{
+    margin:0;
+    padding: 0;
+    background: #121212 ;
+    align-content: center;
+  }
+
+  #gameCanvas{
+    height: 100vh;
+    right: 0;
+    position: fixed;
+  }
+
+  #block {
+    display: flex;
+    align-content: space-around;
+  }
+
+  #rangeslider{
+    width: 220px;
+    font-size: 12px;
+    background-color: rgba(255, 255, 255, 0);
+    padding: 15px;
+  }
+
+  .slider {
+    -webkit-appearance: none;
+    background: #5B5B5B  ;
+    width: 100%;
+    height: 20px;
+    opacity: 2;
+    padding: 2px;
+   }
+
+   .slider:hover {
+    opacity: 1;
+  }
+
+  .slider::-webkit-slider-thumb {
+    -webkit-appearance: none;
+    cursor: pointer;
+    background: #0000FF ;
+    width: 5%;
+    height: 22px;
+  }
+
+  .zoomPadding {
+    width: fit-content;
+    color: white;
+    margin: auto;
+    margin-top: 2px;
+    margin-bottom: 10px;
+  }
+
+  #button {
+    color: white;
+    text-decoration: none;
+    transition-duration: 0.4s;
+    cursor: pointer;
+    width: fit-content;
+    margin: auto;
+    margin: 5px;
+    margin-bottom: 10px;
+    padding: 5px;
+    background-color: #121212;
+    color: white;
+    border: 2px solid blue;
+  }
+
+
+  #buttonStyle {
+    background-color: #121212;
+    color: white;
+    border: 2px solid blue;
+  }
+
+  .button {
+    color: white;
+    text-decoration: none;
+    transition-duration: 0.4s;
+    cursor: pointer;
+    width: fit-content;
+    margin: auto;
+    margin: 5px;
+    margin-bottom: 10px;
+    padding: 5px;
+    background-color: #121212;
+    color: white;
+    border: 2px solid blue;
+  }
+
+  .buttonStyle {
+    background-color: #121212;
+    color: white;
+    border: 2px solid blue;
+  }
+  .buttonStyle:hover {
+    background-color: white;
+    color: #121212;
+    border: 2px solid blue;
+  }
+
+  #buttonStyle:hover {
+    background-color: white;
+    color: #121212;
+    border: 2px solid blue;
+  }
+
+  .inc {
+    width: 100%;
+    font-size: 20px;
+    padding: 0px;
+  }
+
+  #form-group {
+    margin-top: 10px;
+    margin-bottom: 10px;
+    padding: 5px;
+    /*border: 2px solid white;*/
+  }
+
+</style>
+
+<body>
+
+  <div id="block">
+    <div id="rangeslider">
+      <input type="range" min="0.02" max="10" value="2.5"
+                     class="slider" step='0.02' id="zoom">
+
+      <div class="zoomPadding">
+        <p>Zoom</p>
+      </div>
+
+        <input type="range" min="0" max="100" value="0"
+                 class="slider" id="n">
+
+      <div class="zoomPadding">
+        <p id="nIsEqualTo">n = </p>
+      </div>
+
+      <div id="form-group">
+      </div>
+
+      <button class="button buttonStyle inc" onClick="addFunction()">+</button>
+
+    </div>
+
+    <canvas id="gameCanvas" width="600" height="700"></canvas>
+
+    <script src="js/Main.js"></script>
+    <script src="js/Helpers.js"></script>
+    <script src="js/Parse.js"></script>
+    <script src="js/SubShapes.js"></script>
+    <script src="js/Graphics.js"></script>
+    <script src="js/Graph.js"></script>
+    <script src="js/Input.js"></script>
+
+  </div>
+
+</body>
+</hmtl>
+
+
