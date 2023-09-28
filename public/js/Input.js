@@ -210,10 +210,11 @@ function handleSInput(errs){
     }else if(human.betAmount < table.minBet && allIn == false){
         err = 2;
         return true;
-    }else if(human.betAmount > ai.chips+ai.bet){
-        err = 3;
-        return true;
     }
+    // else if(human.betAmount > ai.chips+ai.bet){
+    //     err = 3;
+    //     return true;
+    // }
 
     table.bet = human.betAmount;
     human.raise(human.betAmount);

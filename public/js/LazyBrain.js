@@ -54,7 +54,7 @@ function LazyBrain(){
 			stage = 3;
 			return;
 		}
-
+		
 		// check
 		if(decision == -2){
 			command = ["A.I. Checks"];
@@ -212,8 +212,7 @@ function makeDecisionPreflop(impliedBettingStrategy){
 			return -2;
 		}
 
-		let equityLossAllowance = table.bet*0.9/Math.max(table.pot, table.minBet) + 0.2;
-		// console.log("equityLossAllowance" + equityLossAllowance)
+		let equityLossAllowance = Math.max(table.pot, table.minBet)/table.bet;
 
 		if(Math.random() < 0.2 && scene == 2 && impliedBettingStrategy > -equityLossAllowance){
 			// call postflop
