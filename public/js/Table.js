@@ -136,13 +136,7 @@ function Table(){
         }
     }
 
-    this.flop = function(){
-        this.board.push(deck.pop());
-        // this.board.push(deck.pop());
-        // this.board.push(deck.pop());
-    }
-
-    this.turnAndRiver = function(){
+    this.flipNextCard = function(){
         this.board.push(deck.pop());
     }
 
@@ -181,16 +175,20 @@ function Table(){
         if(ai.dealer){
             turn = "human";
         }
+
+        if(this.board.length < 5 && (stage == -1 || scene == -1)){
+            table.flipNextCard();
+        }
         
         if(this.board.length == 0){
             stage = -1;
 
             setTimeout(() => { 
-                table.flop();
+                table.flipNextCard();
                 setTimeout(() => { 
-                    table.flop();
+                    table.flipNextCard();
                     setTimeout(() => { 
-                        table.flop();
+                        table.flipNextCard();
                         setTimeout(() => { 
                             scene = 2;
                             stage = 1;
@@ -205,7 +203,7 @@ function Table(){
         if(this.board.length < 5){
             stage = -1;
             setTimeout(() => { 
-                table.turnAndRiver();
+                table.flipNextCard();
                 setTimeout(() => { 
                     stage = 1;
                 }, 1000);
@@ -246,12 +244,17 @@ function Player(){
         }
         
         if(totalChips - amount <= 0){
-            // this.allIn = true;
             this.chips = 0;
             this.betAmount = totalChips;
             this.bet = totalChips;
             table.bet = totalChips;
             amount = totalChips;
+
+            if(display){
+                command = ["A.I. is all in"];
+            }
+
+            return;
         }
 
         if(display){
@@ -260,33 +263,33 @@ function Player(){
     }
 
     this.call = function(display){ 
-        if(table.bet > this.chips + this.bet){
-            this.betAmount += this.chips;
-            this.bet += this.chips;
+        let totalChips = this.chips + this.bet;
+
+        if(table.bet >= totalChips){
+            this.betAmount = totalChips;
+            this.bet = totalChips;
             this.chips = 0;
 
             this.allIn = true;
+            stage = -1;
+            scene = -1;
             // all in
             return 1;
         }
 
-        if(ai.chips <= 0 || human.chips <= 0){
+        stage = 1;
+
+        this.chips = totalChips - table.bet;
+        this.betAmount = table.bet;
+        this.bet = table.bet;
+
+        if(ai.allIn || human.allIn || ai.chips <= 0 || human.chips <= 0){
+            stage = -1;
+            scene = -1;
             ai.allIn = true;
         }
 
-        stage = 1;
-
-        let falseCall = false;
-
-        if(table.bet - this.bet <= 0){
-            falseCall = true;
-        }
-
-        this.chips -= table.bet - this.bet;
-        this.betAmount += table.bet - this.bet;
-        this.bet += table.bet - this.bet;
-
-        if(display && falseCall == false){
+        if(display){
             command = ["A.I. Calls"];
         }
     }

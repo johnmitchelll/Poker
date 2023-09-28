@@ -11,3 +11,4 @@ var turn;
 var err = -1;
 var timer = 0;
 var command = -1;
+var timer2;

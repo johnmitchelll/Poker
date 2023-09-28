@@ -15,7 +15,20 @@ function playHand(keycode){
 	handleChipsOnBet(ai.betAmount, CANVAS_WIDTH/2-(CARD_WIDTH*2.75), CARD_PIC_HEIGHT/2);
 	handleChipsOnBet(human.betAmount, CANVAS_WIDTH/2-(CARD_WIDTH*3), CANVAS_HEIGHT-CANVAS_HEIGHT/8);
 
-	if(stage == -1){
+	// console.log(stage, scene,)
+	// console.log(ai.allIn , human.allIn , ai.chips <= 0 , human.chips <= 0)
+
+	if(ai.allIn || human.allIn){
+		ai.display(true);
+
+		setTimer(2, () =>{
+			table.seeNext()
+		});
+
+		return; 
+	}
+
+	if(stage == -1 || scene == -1){
 		ai.display(true);
 		return;
 	}
@@ -34,15 +47,6 @@ function playHand(keycode){
 
 	    Stage3Input(keycode);
 	    return;
-	}
-
-	if(human.allIn || ai.allIn){
-		scene = -1;
-		stage = -1;
-		setTimer(2, function(){
-			table.seeNext();
-		});
-		return; 
 	}
 
 	ErrorHandling();

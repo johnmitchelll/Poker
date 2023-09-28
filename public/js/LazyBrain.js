@@ -42,6 +42,7 @@ function LazyBrain(){
 
 		// console.log(impliedBettingStrategy)
 
+
 		// fold
 		if(decision == -1){
 			command = ["A.I. Folds"];
@@ -69,6 +70,11 @@ function LazyBrain(){
 		if(decision == -3){
 			command = ["A.I. Calls"];
 			ai.call();
+
+			// if ai calls for either its all in or human all in
+			if(stage == -1 || scene == -1){
+				return;
+			}
 
 			if(human.straddle){
 				human.straddle = false;
@@ -191,7 +197,7 @@ function getOutcomeOfInstance(humanHand, aiHand, deckCopy, losses, wins, chops, 
 
 function makeDecisionPreflop(impliedBettingStrategy){
 
-	console.log("impliedBettingStrategy: " + impliedBettingStrategy)
+	// console.log("impliedBettingStrategy: " + impliedBettingStrategy)
 
 	// console.log("table.bet: " + table.bet, "stage: " + stage);
 
@@ -207,7 +213,7 @@ function makeDecisionPreflop(impliedBettingStrategy){
 		}
 
 		let equityLossAllowance = table.bet*0.9/Math.max(table.pot, table.minBet) + 0.2;
-		console.log("equityLossAllowance" + equityLossAllowance)
+		// console.log("equityLossAllowance" + equityLossAllowance)
 
 		if(Math.random() < 0.2 && scene == 2 && impliedBettingStrategy > -equityLossAllowance){
 			// call postflop
@@ -225,13 +231,19 @@ function makeDecisionPreflop(impliedBettingStrategy){
 		return -1;
 	}
 
+
+	// we need to go all in or fold
+	if(table.bet >= ai.chips + ai.bet){
+		return -3;
+	}
+
 	// raise
 	let bettingRange = lazyBrain.agression + impliedBettingStrategy - lazyBrain.threshold;
 	// console.log(lazyBrain.agression, impliedBettingStrategy, bettingRange)
 
 	// console.log(human.chips)
 	if(bettingRange > 0 && human.chips > 0){
-		// let betAmount = (table.bet*2) * (bettingRange+1);
+		let betAmount = (table.bet*2) * (bettingRange+1);
 
 		if(table.bet == 0){
 			// console.log("OPEN BET", table.pot, human.betAmount)
@@ -239,7 +251,7 @@ function makeDecisionPreflop(impliedBettingStrategy){
 			betAmount = Math.max(betAmount, table.minBet);
 		}
 
-		console.log(betAmount);
+		// console.log(betAmount);
 
 		return Math.ceil(betAmount);
 	}

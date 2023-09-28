@@ -37,7 +37,7 @@ function drawAll(){
 
 	//drawDeck
 	for (var i = 0; i < 5; i++) {
-		drawImageFromSpriteSheetWithRotation(cardsPic, 12+(2*128), 12+(4*180), CARD_PIC_WIDTH, CARD_PIC_HEIGHT,50+i*2,50+i*2, CARD_WIDTH, CARD_HEIGHT);
+		drawImageFromSpriteSheetWithRotation(cardsPic, 12+(2*128), 12+(4*180), CARD_PIC_WIDTH, CARD_PIC_HEIGHT,50+i*-2,50+i*-2, CARD_WIDTH, CARD_HEIGHT);
 	}
 
 	// for (var i = 0; i < 3; i++) {
