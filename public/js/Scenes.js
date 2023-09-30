@@ -12,8 +12,8 @@
 // 4 all in or fold
 
 function playHand(keycode){
-	handleChipsOnBet(ai.betAmount, CANVAS_WIDTH/2-(CARD_WIDTH*2.75), CARD_PIC_HEIGHT/2);
-	handleChipsOnBet(human.betAmount, CANVAS_WIDTH/2-(CARD_WIDTH*3), CANVAS_HEIGHT-CANVAS_HEIGHT/8);
+	handleChipsOnBet(ai.betAmount, CANVAS_WIDTH/2-(CARD_WIDTH*2.75), 100);
+	handleChipsOnBet(human.betAmount, CANVAS_WIDTH/2-(CARD_WIDTH*2.75), CANVAS_HEIGHT-150);
 
 	// console.log(stage, scene,)
 	// console.log(ai.allIn , human.allIn , ai.chips <= 0 , human.chips <= 0)
@@ -40,8 +40,8 @@ function playHand(keycode){
 	// show down get to next hand
 	if(stage == 3){
 		let width = measureText("Fold: \"f\"", largeFont, "32px customfont");
-	    drawText("black", "32px customfont", "Press \"s\" to", CANVAS_WIDTH/2+width.width*1.75, CANVAS_HEIGHT-9*CARD_PIC_HEIGHT/8+largeFont);
-	    drawText("black", "32px customfont", "play the next hand...", CANVAS_WIDTH/2+width.width*1.75, CANVAS_HEIGHT-9*CARD_PIC_HEIGHT/8+largeFont*2.5);
+	    drawText("black", "32px customfont", "Press \"s\" to", CANVAS_WIDTH/2+width.width*1.75, CANVAS_HEIGHT-210+largeFont);
+	    drawText("black", "32px customfont", "play the next hand...", CANVAS_WIDTH/2+width.width*1.75, CANVAS_HEIGHT-210+largeFont*2.5);
 
 	    ai.display();
 
@@ -59,11 +59,11 @@ function playHand(keycode){
 		if(human.dealer){
 
 			let width = measureText("Fold: \"f\"", largeFont, "32px customfont");
-        	drawText("black", "32px customfont", "Enter Straddle:", CANVAS_WIDTH/2+width.width*1.75, CANVAS_HEIGHT-9*CARD_PIC_HEIGHT/8+largeFont);
-        	drawText("black", "32px customfont", human.betAmount, CANVAS_WIDTH/2+width.width*1.75, CANVAS_HEIGHT-9*CARD_PIC_HEIGHT/8+largeFont*2.5);
+        	drawText("black", "32px customfont", "Enter Straddle:", CANVAS_WIDTH/2+width.width*1.75, CANVAS_HEIGHT-210+largeFont);
+        	drawText("black", "32px customfont", human.betAmount, CANVAS_WIDTH/2+width.width*1.75, CANVAS_HEIGHT-210+largeFont*2.5);
 
-        	drawText("black", "32px customfont", "To continue", CANVAS_WIDTH/2+width.width*1.75, CANVAS_HEIGHT-9*CARD_PIC_HEIGHT/8+largeFont*4);
-        	drawText("black", "32px customfont", "press: \"s\"", CANVAS_WIDTH/2+width.width*1.75, CANVAS_HEIGHT-9*CARD_PIC_HEIGHT/8+largeFont*5.5);
+        	drawText("black", "32px customfont", "To continue", CANVAS_WIDTH/2+width.width*1.75, CANVAS_HEIGHT-210+largeFont*4);
+        	drawText("black", "32px customfont", "press: \"s\"", CANVAS_WIDTH/2+width.width*1.75, CANVAS_HEIGHT-210+largeFont*5.5);
 
         	Scene0Input(keycode);
         	return;
@@ -100,12 +100,12 @@ function playHand(keycode){
 		// bet into you
 		if(stage == 0){
 			let width = measureText("Fold: \"f\"", largeFont, "32px customfont");
-	        drawText("black", "32px customfont", "Fold: \"f\"", CANVAS_WIDTH/2+width.width*1.75, CANVAS_HEIGHT-9*CARD_PIC_HEIGHT/8+largeFont);
-	        drawText("black", "32px customfont", "Call: \"c\"", CANVAS_WIDTH/2+width.width*1.75, CANVAS_HEIGHT-9*CARD_PIC_HEIGHT/8+largeFont*2.5);
+	        drawText("black", "32px customfont", "Fold: \"f\"", CANVAS_WIDTH/2+width.width*1.75, CANVAS_HEIGHT-210+largeFont);
+	        drawText("black", "32px customfont", "Call: \"c\"", CANVAS_WIDTH/2+width.width*1.75, CANVAS_HEIGHT-210+largeFont*2.5);
 
-	        drawText("black", "32px customfont", "Input Raise Amount:", CANVAS_WIDTH/2+width.width*1.75, CANVAS_HEIGHT-9*CARD_PIC_HEIGHT/8+largeFont*4);
-	        drawText("black", "32px customfont", human.betAmount, CANVAS_WIDTH/2+width.width*1.75, CANVAS_HEIGHT-9*CARD_PIC_HEIGHT/8+largeFont*5.5);
-	        drawText("black", "32px customfont", "Enter Raise: \"s\"", CANVAS_WIDTH/2+width.width*1.75, CANVAS_HEIGHT-9*CARD_PIC_HEIGHT/8+largeFont*7);
+	        drawText("black", "32px customfont", "Input Raise Amount:", CANVAS_WIDTH/2+width.width*1.75, CANVAS_HEIGHT-210+largeFont*4);
+	        drawText("black", "32px customfont", human.betAmount, CANVAS_WIDTH/2+width.width*1.75, CANVAS_HEIGHT-210+largeFont*5.5);
+	        drawText("black", "32px customfont", "Enter Raise: \"s\"", CANVAS_WIDTH/2+width.width*1.75, CANVAS_HEIGHT-210+largeFont*7);
 
 	        Stage0Input(keycode);
 		}
@@ -113,10 +113,10 @@ function playHand(keycode){
 		// option (no bet into you)
 		if(stage == 1 || stage == 2){
 			let width = measureText("Fold: \"f\"", largeFont, "32px customfont");
-	        drawText("black", "32px customfont", "Check: \"c\"", CANVAS_WIDTH/2+width.width*1.75, CANVAS_HEIGHT-9*CARD_PIC_HEIGHT/8+largeFont);
-	        drawText("black", "32px customfont", "Input Bet Amount:", CANVAS_WIDTH/2+width.width*1.75, CANVAS_HEIGHT-9*CARD_PIC_HEIGHT/8+largeFont*2.5);
-	        drawText("black", "32px customfont", human.betAmount, CANVAS_WIDTH/2+width.width*1.75, CANVAS_HEIGHT-9*CARD_PIC_HEIGHT/8+largeFont*4);
-	        drawText("black", "32px customfont", "Enter Bet: \"s\"", CANVAS_WIDTH/2+width.width*1.75, CANVAS_HEIGHT-9*CARD_PIC_HEIGHT/8+largeFont*5.5);
+	        drawText("black", "32px customfont", "Check: \"c\"", CANVAS_WIDTH/2+width.width*1.75, CANVAS_HEIGHT-210+largeFont);
+	        drawText("black", "32px customfont", "Input Bet Amount:", CANVAS_WIDTH/2+width.width*1.75, CANVAS_HEIGHT-210+largeFont*2.5);
+	        drawText("black", "32px customfont", human.betAmount, CANVAS_WIDTH/2+width.width*1.75, CANVAS_HEIGHT-210+largeFont*4);
+	        drawText("black", "32px customfont", "Enter Bet: \"s\"", CANVAS_WIDTH/2+width.width*1.75, CANVAS_HEIGHT-210+largeFont*5.5);
 
 	        Stage1Input(keycode);
 		}
@@ -124,10 +124,10 @@ function playHand(keycode){
 		// all in or fold
 		if(stage == 4){
 			let width = measureText("Fold: \"f\"", largeFont, "32px customfont");
-	        drawText("black", "32px customfont", "Press \"a\" to", CANVAS_WIDTH/2+width.width*1.75, CANVAS_HEIGHT-9*CARD_PIC_HEIGHT/8+largeFont);
-	        drawText("black", "32px customfont", "go all in", CANVAS_WIDTH/2+width.width*1.75, CANVAS_HEIGHT-9*CARD_PIC_HEIGHT/8+largeFont*2.5);
-	        drawText("black", "32px customfont", "Press \"f\"", CANVAS_WIDTH/2+width.width*1.75, CANVAS_HEIGHT-9*CARD_PIC_HEIGHT/8+largeFont*4);
-	        drawText("black", "32px customfont", "to fold...", CANVAS_WIDTH/2+width.width*1.75, CANVAS_HEIGHT-9*CARD_PIC_HEIGHT/8+largeFont*5.5);
+	        drawText("black", "32px customfont", "Press \"a\" to", CANVAS_WIDTH/2+width.width*1.75, CANVAS_HEIGHT-210+largeFont);
+	        drawText("black", "32px customfont", "go all in", CANVAS_WIDTH/2+width.width*1.75, CANVAS_HEIGHT-210+largeFont*2.5);
+	        drawText("black", "32px customfont", "Press \"f\"", CANVAS_WIDTH/2+width.width*1.75, CANVAS_HEIGHT-210+largeFont*4);
+	        drawText("black", "32px customfont", "to fold...", CANVAS_WIDTH/2+width.width*1.75, CANVAS_HEIGHT-210+largeFont*5.5);
 
 	        Stage4Input(keycode);
 		}
@@ -135,7 +135,7 @@ function playHand(keycode){
 }
 
 
-function handleChipsOnBet(bet, X, Y){
+function handleChipsOnBet(bet, X, Y, displayNum){
 
 	if(bet == 0){
 		return;
@@ -177,6 +177,10 @@ function handleChipsOnBet(bet, X, Y){
 		drawImageFromSpriteSheetWithRotation(chipsPic, 2*30-1, 0, 30, 30, X+60, Y-i*3, 30, 30);
 	}
 
+	if(displayNum == false){
+		return;
+	}
+
 	let width = measureText("$" + bet, largeFont, "32px customfont");
     drawText("black", "32px customfont", "$" + bet, X-width.width/2, Y+largeFont*3);
 }
@@ -189,7 +193,7 @@ function ErrorHandling(){
 		return;
 	}
 
-	colorRect(CANVAS_WIDTH/2-(CARD_WIDTH*5+50*5)/2+13, CANVAS_HEIGHT/2-CARD_PIC_HEIGHT/2-8, (CARD_WIDTH*5+46*5), CARD_HEIGHT+36, "white");
+	colorRect(CANVAS_WIDTH/2.5-(CARD_WIDTH*5+50*5)/2, CANVAS_HEIGHT/2-CARD_PIC_HEIGHT/2-50, (CARD_WIDTH*5+450), CARD_HEIGHT+36, "white");
 
 	// bet more than stack
 	if(err == 0){

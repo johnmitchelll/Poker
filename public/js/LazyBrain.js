@@ -71,6 +71,8 @@ function LazyBrain(){
 			command = ["A.I. Calls"];
 			ai.call();
 
+			// console.log(stage, scene, human.straddle)
+
 			// if ai calls for either its all in or human all in
 			if(stage == -1 || scene == -1){
 				return;
@@ -164,10 +166,6 @@ function getPostFlopValue(river, finalBets){
 		}	
 	}
 
-	// console.log("wins: " + wins.length, wins);
-	// console.log("losses: " + losses.length, losses);
-	// console.log("chops: " + chops.length, chops);
-	// console.log("win percentage: " + (wins.length / (losses.length + wins.length)));
 	return wins.length / (losses.length + wins.length);
 }
 
@@ -197,9 +195,13 @@ function getOutcomeOfInstance(humanHand, aiHand, deckCopy, losses, wins, chops, 
 
 function makeDecisionPreflop(impliedBettingStrategy){
 
-	// console.log("impliedBettingStrategy: " + impliedBettingStrategy)
+	let equityLossAllowance = Math.max(table.pot+ai.bet, table.minBet)/table.bet;
 
-	// console.log("table.bet: " + table.bet, "stage: " + stage);
+	// console.log("impliedBettingStrategy: " + impliedBettingStrategy);
+
+	if(impliedBettingStrategy == -1){
+		return -1;
+	}
 
 	if(impliedBettingStrategy < 0){
 		if(ai.dealer && table.bet == table.minBet && scene == 1){
@@ -212,36 +214,40 @@ function makeDecisionPreflop(impliedBettingStrategy){
 			return -2;
 		}
 
-		let equityLossAllowance = Math.max(table.pot, table.minBet)/table.bet;
-
+		equityLossAllowance = table.minBet*2/table.bet;
+		// console.log("equityLossAllowance: " + equityLossAllowance);
+		
 		if(Math.random() < 0.2 && scene == 2 && impliedBettingStrategy > -equityLossAllowance){
 			// call postflop
-			// console.log("LETS GAMBLE!!!");
 			return -3;
 		}
 
 		if(Math.random() < 0.6 && scene == 1  && impliedBettingStrategy > -equityLossAllowance){
 			// call preflop
-			// console.log("LETS GAMBLE!!!");
 			return -3;
 		}
 
-		// fold	
+		// fold
 		return -1;
 	}
 
 
+	// console.log("equityLossAllowance: " + equityLossAllowance);
+
 	// we need to go all in or fold
 	if(table.bet >= ai.chips + ai.bet){
-		return -3;
+		if(lazyBrain.agression + impliedBettingStrategy >= 1-equityLossAllowance){
+			return -3;
+		}
+
+		return -1;
 	}
 
 	// raise
 	let bettingRange = lazyBrain.agression + impliedBettingStrategy - lazyBrain.threshold;
-	// console.log(lazyBrain.agression, impliedBettingStrategy, bettingRange)
 
 	// console.log(human.chips)
-	if(bettingRange > 0 && human.chips > 0){
+	if(bettingRange > 0 && human.chips > 0 && Math.random > 0.2){
 		let betAmount = (table.bet*2) * (bettingRange+1);
 
 		if(table.bet == 0){
@@ -253,6 +259,11 @@ function makeDecisionPreflop(impliedBettingStrategy){
 		// console.log(betAmount);
 
 		return Math.ceil(betAmount);
+	}
+
+	if(table.bet == 0 || (table.bet == table.minBet && scene == 1 && ai.dealer)){
+		// check
+		return -2;
 	}
 
 	// call

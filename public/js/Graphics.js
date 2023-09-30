@@ -1,10 +1,10 @@
 const CANVAS_WIDTH = 1000;
 const CANVAS_HEIGHT = 675;
 
-const CARD_PIC_WIDTH = 124;
-const CARD_PIC_HEIGHT = 176;
+const CARD_PIC_WIDTH = 73;
+const CARD_PIC_HEIGHT = 105;
 
-const CAR_PIC_GAP = 4;
+const CAR_PIC_GAP = 3;
 
 const PIC_COLS = 13;
 const PIC_ROWS = 4;
@@ -37,7 +37,7 @@ function drawAll(){
 
 	//drawDeck
 	for (var i = 0; i < 5; i++) {
-		drawImageFromSpriteSheetWithRotation(cardsPic, 12+(2*128), 12+(4*180), CARD_PIC_WIDTH, CARD_PIC_HEIGHT,50+i*-2,50+i*-2, CARD_WIDTH, CARD_HEIGHT);
+		drawImageFromSpriteSheetWithRotation(cardsPic, 160, 437, CARD_PIC_WIDTH, CARD_PIC_HEIGHT,50+i*-2,50+i*-2, CARD_WIDTH, CARD_HEIGHT);
 	}
 
 	// for (var i = 0; i < 3; i++) {
@@ -51,16 +51,16 @@ function drawAll(){
 	// drawText("black", "32px customfont", "hello", 400, 200)
 }
 
-var cards = [{"card":"As","sx":12,"sy":12},{"card":"Ah","sx":12,"sy":192},{"card":"Ac","sx":12,"sy":372},{"card":"Ad","sx":12,"sy":552},
-			 {"card":"2s","sx":140,"sy":12},{"card":"2h","sx":140,"sy":192},{"card":"2c","sx":140,"sy":372},{"card":"2d","sx":140,"sy":552},
-			 {"card":"3s","sx":268,"sy":12},{"card":"3h","sx":268,"sy":192},{"card":"3c","sx":268,"sy":372},{"card":"3d","sx":268,"sy":552},
-			 {"card":"4s","sx":396,"sy":12},{"card":"4h","sx":396,"sy":192},{"card":"4c","sx":396,"sy":372},{"card":"4d","sx":396,"sy":552},
-			 {"card":"5s","sx":524,"sy":12},{"card":"5h","sx":524,"sy":192},{"card":"5c","sx":524,"sy":372},{"card":"5d","sx":524,"sy":552},
-			 {"card":"6s","sx":652,"sy":12},{"card":"6h","sx":652,"sy":192},{"card":"6c","sx":652,"sy":372},{"card":"6d","sx":652,"sy":552},
-			 {"card":"7s","sx":780,"sy":12},{"card":"7h","sx":780,"sy":192},{"card":"7c","sx":780,"sy":372},{"card":"7d","sx":780,"sy":552},
-			 {"card":"8s","sx":908,"sy":12},{"card":"8h","sx":908,"sy":192},{"card":"8c","sx":908,"sy":372},{"card":"8d","sx":908,"sy":552},
-			 {"card":"9s","sx":1036,"sy":12},{"card":"9h","sx":1036,"sy":192},{"card":"9c","sx":1036,"sy":372},{"card":"9d","sx":1036,"sy":552},
-			 {"card":"10s","sx":1164,"sy":12},{"card":"10h","sx":1164,"sy":192},{"card":"10c","sx":1164,"sy":372},{"card":"10d","sx":1164,"sy":552},
-			 {"card":"Js","sx":1292,"sy":12},{"card":"Jh","sx":1292,"sy":192},{"card":"Jc","sx":1292,"sy":372},{"card":"Jd","sx":1292,"sy":552},
-			 {"card":"Qs","sx":1420,"sy":12},{"card":"Qh","sx":1420,"sy":192},{"card":"Qc","sx":1420,"sy":372},{"card":"Qd","sx":1420,"sy":552},
-			 {"card":"Ks","sx":1548,"sy":12},{"card":"Kh","sx":1548,"sy":192},{"card":"Kc","sx":1548,"sy":372},{"card":"Kd","sx":1548,"sy":552}]
+var cards = [{"card":"As","sx":7,"sy":7},{"card":"Ah","sx":7,"sy":115},{"card":"Ac","sx":7,"sy":222},{"card":"Ad","sx":7,"sy":329},
+			 {"card":"2s","sx":84,"sy":7},{"card":"2h","sx":84,"sy":115},{"card":"2c","sx":84,"sy":222},{"card":"2d","sx":84,"sy":329},
+			 {"card":"3s","sx":160,"sy":7},{"card":"3h","sx":160,"sy":115},{"card":"3c","sx":160,"sy":222},{"card":"3d","sx":160,"sy":329},
+			 {"card":"4s","sx":236,"sy":7},{"card":"4h","sx":236,"sy":115},{"card":"4c","sx":236,"sy":222},{"card":"4d","sx":236,"sy":329},
+			 {"card":"5s","sx":313,"sy":7},{"card":"5h","sx":313,"sy":115},{"card":"5c","sx":313,"sy":222},{"card":"5d","sx":313,"sy":329},
+			 {"card":"6s","sx":389,"sy":7},{"card":"6h","sx":389,"sy":115},{"card":"6c","sx":389,"sy":222},{"card":"6d","sx":389,"sy":329},
+			 {"card":"7s","sx":465,"sy":7},{"card":"7h","sx":465,"sy":115},{"card":"7c","sx":465,"sy":222},{"card":"7d","sx":465,"sy":329},
+			 {"card":"8s","sx":542,"sy":7},{"card":"8h","sx":542,"sy":115},{"card":"8c","sx":542,"sy":222},{"card":"8d","sx":542,"sy":329},
+			 {"card":"9s","sx":618,"sy":7},{"card":"9h","sx":618,"sy":115},{"card":"9c","sx":618,"sy":222},{"card":"9d","sx":618,"sy":329},
+			 {"card":"10s","sx":694,"sy":7},{"card":"10h","sx":694,"sy":115},{"card":"10c","sx":694,"sy":222},{"card":"10d","sx":694,"sy":329},
+			 {"card":"Js","sx":771,"sy":7},{"card":"Jh","sx":771,"sy":115},{"card":"Jc","sx":771,"sy":222},{"card":"Jd","sx":771,"sy":329},
+			 {"card":"Qs","sx":847,"sy":7},{"card":"Qh","sx":847,"sy":115},{"card":"Qc","sx":847,"sy":222},{"card":"Qd","sx":847,"sy":329},
+			 {"card":"Ks","sx":923,"sy":7},{"card":"Kh","sx":923,"sy":115},{"card":"Kc","sx":923,"sy":222},{"card":"Kd","sx":923,"sy":329}]

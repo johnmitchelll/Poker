@@ -76,8 +76,9 @@ function Scene0Input(keyCode){
         if(human.betAmount == 0){
             table.bet = table.minBet;
             human.call();
-        }else if(handleSInput()){
+        }else if(handleSInput() == false){
             human.straddle = true;
+        }else if(handleSInput()){
             return;
         }
         
@@ -193,7 +194,7 @@ function Stage4Input(keycode){
 
 }
 
-function handleSInput(errs){
+function handleSInput(){
     let allIn = false; 
     human.autoBet = true;
 
@@ -211,16 +212,13 @@ function handleSInput(errs){
         err = 2;
         return true;
     }
-    // else if(human.betAmount > ai.chips+ai.bet){
-    //     err = 3;
-    //     return true;
-    // }
 
     table.bet = human.betAmount;
     human.raise(human.betAmount);
     turn = "ai";
 
     s_held = true;
+    return false;
 }
 
 

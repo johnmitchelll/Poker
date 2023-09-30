@@ -48,8 +48,35 @@ function start(){
 	cardsRef.style.display = "none";
 
 
+	let results = [];
+
+	for (let a = 0; a < 10; a++) {
+		for (let b = 0; b < 10; b++) {
+			results.push(a * recursion(Math.abs(a+b), Math.abs(a-b)) - b * recursion(Math.abs(b-a), Math.abs(b+a)));
+		}
+	}
+
+	console.log(JSON.stringify(results))
+
 	// getWinner(["2c", "Qh"], ["10h", "3h"]);
 }
 
 
+
+
+function recursion(x, y) {
+   if (x <= 0 && y <= 0){
+		return 0;
+   }else if (x > 0 && y <= 0){
+    	return x;
+   }else if (x <= 0 && y > 0){
+    	return y;
+   }else{
+       return recursion(x-1, y) + recursion(x, y-1);
+   }
+
+
+
+
+} 
 

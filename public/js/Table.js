@@ -10,7 +10,7 @@ function Card(card, sx, sy){
             return;
         }
 
-        drawImageFromSpriteSheetWithRotation(cardsPic, 12+(2*128), 12+(4*180), CARD_PIC_WIDTH, CARD_PIC_HEIGHT, dx, dy, CARD_WIDTH, CARD_HEIGHT);
+        drawImageFromSpriteSheetWithRotation(cardsPic, 160, 437, CARD_PIC_WIDTH, CARD_PIC_HEIGHT, dx, dy, CARD_WIDTH, CARD_HEIGHT);
     }
 }
 
@@ -62,17 +62,20 @@ function Table(){
         colorRectNoFill(CANVAS_WIDTH/2+15, CARD_PIC_HEIGHT/8, CARD_WIDTH+25, CARD_HEIGHT+25, "white", 5);
 
         // bottom card space 
-        colorRectNoFill(CANVAS_WIDTH/2-(CARD_WIDTH+40), CANVAS_HEIGHT-9*CARD_PIC_HEIGHT/8, CARD_WIDTH+25, CARD_HEIGHT+25, "white", 5);
-        colorRectNoFill(CANVAS_WIDTH/2+15, CANVAS_HEIGHT-9*CARD_PIC_HEIGHT/8, CARD_WIDTH+25, CARD_HEIGHT+25, "white", 5);
+        colorRectNoFill(CANVAS_WIDTH/2-(CARD_WIDTH+40), CANVAS_HEIGHT-240, CARD_WIDTH+25, CARD_HEIGHT+25, "white", 5);
+        colorRectNoFill(CANVAS_WIDTH/2+15, CANVAS_HEIGHT-240, CARD_WIDTH+25, CARD_HEIGHT+25, "white", 5);
 
         // board
         for (var i = 0; i < 5; i++) {
-            colorRectNoFill(CANVAS_WIDTH/2-(CARD_WIDTH*5+50*5)/2+i*(CARD_WIDTH+50)+15, CANVAS_HEIGHT/2-CARD_PIC_HEIGHT/2, CARD_WIDTH+25, CARD_HEIGHT+25, "white", 5);
+            colorRectNoFill(CANVAS_WIDTH/2.5-(CARD_WIDTH*5+50*5)/2+i*(CARD_WIDTH+50)+15, CANVAS_HEIGHT/2-100, CARD_WIDTH+25, CARD_HEIGHT+25, "white", 5);
         }
 
         // pot
         width = measureText("Pot: $" + this.pot, largeFont, "32px customfont");
-        drawText("black", "32px customfont", "Pot: $" + this.pot, CANVAS_WIDTH/2-width.width, CANVAS_HEIGHT/2+CARD_PIC_HEIGHT/2+largeFont);
+        drawText("black", "32px customfont", "Pot: $" + this.pot, CANVAS_WIDTH/2+CANVAS_WIDTH/2.75-width.width, CANVAS_HEIGHT/2+CARD_HEIGHT/2-50);
+
+        // pot chips
+        handleChipsOnBet(this.pot, CANVAS_WIDTH/2+CANVAS_WIDTH/2.75-width.width/4, CANVAS_HEIGHT/2+CARD_HEIGHT/2-120, false);
 
         // ai and human cards
         if(ai.cards[0]){
@@ -81,14 +84,14 @@ function Table(){
         }
 
         if(human.cards[0]){
-            human.cards[0].display(CANVAS_WIDTH/2-(CARD_WIDTH+28), CANVAS_HEIGHT-9*CARD_PIC_HEIGHT/8+12);
-            human.cards[1].display(CANVAS_WIDTH/2+27, CANVAS_HEIGHT-9*CARD_PIC_HEIGHT/8+12);
+            human.cards[0].display(CANVAS_WIDTH/2-(CARD_WIDTH+28), CANVAS_HEIGHT-240+12);
+            human.cards[1].display(CANVAS_WIDTH/2+27, CANVAS_HEIGHT-240+12);
         }
 
         // board cards
         for (var i = 0; i < 5; i++) {
             if(this.board[i]){
-                this.board[i].display(CANVAS_WIDTH/2-(CARD_WIDTH*5+50*5)/2+i*(CARD_WIDTH+50)+27, CANVAS_HEIGHT/2-CARD_PIC_HEIGHT/2+12);
+                this.board[i].display(CANVAS_WIDTH/2.5-(CARD_WIDTH*5+50*5)/2+i*(CARD_WIDTH+50)+27, CANVAS_HEIGHT/2-CARD_PIC_HEIGHT/2-35);
             }
         }
 
@@ -100,17 +103,17 @@ function Table(){
 
         // ai stack
         let width = measureText("Stack: $" + ai.chips, largeFont, "32px customfont");
-        drawText("black", "32px customfont", "Stack: $" + ai.chips, CANVAS_WIDTH/2-width.width, CANVAS_HEIGHT/2-CARD_PIC_HEIGHT/2-largeFont-8);
+        drawText("black", "32px customfont", "Stack: $" + ai.chips, CANVAS_WIDTH/2-width.width+10, CANVAS_HEIGHT/2-125);
 
         // human stack
         width = measureText("Stack: $" + human.chips, largeFont, "32px customfont");
-        drawText("black", "32px customfont", "Stack: $" + human.chips, CANVAS_WIDTH/2-width.width, CANVAS_HEIGHT-3);
+        drawText("black", "32px customfont", "Stack: $" + human.chips, CANVAS_WIDTH/2-width.width+10, CANVAS_HEIGHT-40);
 
         // dealer chip
         if(ai.dealer){
-            drawImageFromSpriteSheetWithRotation(chips2Pic, 30-1, 0, 30, 30, CANVAS_WIDTH/2+width.width*1.2, CANVAS_HEIGHT/2-CARD_PIC_HEIGHT/2-largeFont*2, 30, 30);
+            drawImageFromSpriteSheetWithRotation(chips2Pic, 30-1, 0, 30, 30, CANVAS_WIDTH/2+110, CANVAS_HEIGHT/2-CARD_PIC_HEIGHT/2-largeFont*4-5, 30, 30);
         }else{
-            drawImageFromSpriteSheetWithRotation(chips2Pic, 30-1, 0, 30, 30, CANVAS_WIDTH/2+width.width, CANVAS_HEIGHT/2+CARD_PIC_HEIGHT/2, 30, 30);
+            drawImageFromSpriteSheetWithRotation(chips2Pic, 30-1, 0, 30, 30, CANVAS_WIDTH/2+160, CANVAS_HEIGHT/2+CARD_PIC_HEIGHT/2+25, 30, 30);
         }
     }
 
@@ -303,7 +306,7 @@ function Player(){
             return;
         }
 
-        colorRect(CANVAS_WIDTH/2+CARD_PIC_WIDTH*1.5, 25, CARD_PIC_WIDTH*2.35, CARD_PIC_HEIGHT, "WHITE");
+        colorRect(CANVAS_WIDTH/2+150, 15, 300, 175, "WHITE");
         let width;
         let font = largeFont*1.5;
 
@@ -311,7 +314,7 @@ function Player(){
             width = measureText(command[i], font, font + "px customfont");
             
             drawText("black", + font + "px customfont", command[i], 
-                CANVAS_WIDTH/2+CARD_PIC_WIDTH*1.5+10, 15+(i+1)*(font+20));
+            CANVAS_WIDTH/2+150+10, 5+(i+1)*(font+20));
         }
 
         setTimeout(() => { 
