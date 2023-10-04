@@ -21,8 +21,8 @@ function playHand(keycode){
 	if(ai.allIn || human.allIn){
 		ai.display(true);
 
-		setTimer(2, () =>{
-			table.seeNext()
+		setTimer(2, 1, () =>{
+			table.seeNext();
 		});
 
 		return; 
@@ -193,16 +193,18 @@ function ErrorHandling(){
 		return;
 	}
 
-	colorRect(CANVAS_WIDTH/2.5-(CARD_WIDTH*5+50*5)/2, CANVAS_HEIGHT/2-CARD_PIC_HEIGHT/2-50, (CARD_WIDTH*5+450), CARD_HEIGHT+36, "white");
+	colorRect(0, CANVAS_HEIGHT/2-CARD_PIC_HEIGHT/2-50, CANVAS_WIDTH, CARD_HEIGHT+36, "white");
 
 	// bet more than stack
 	if(err == 0){
 		let width = measureText("Your Max Bet is $" + (human.chips+human.bet), (largeFont*2), (largeFont*2) + "px customfont");
     	drawText("black", (largeFont*2) + "px customfont", "Your Max Bet is $" + (human.chips+human.bet), CANVAS_WIDTH/2-width.width/1.75, CANVAS_HEIGHT/2);
 
-    	setTimer(1, function(){
+    	setTimer(1, 0, function(){
     		err = -1;
     	});
+
+		return;
 	}
 
 	// less than min raise
@@ -210,9 +212,11 @@ function ErrorHandling(){
 		let width = measureText("Your Min Raise is $" + table.bet*2, (largeFont*2) + "px customfont");
     	drawText("black", (largeFont*2) + "px customfont", "Your Min Raise is $" + table.bet*2, CANVAS_WIDTH/2-width.width*1.75, CANVAS_HEIGHT/2);
 
-    	setTimer(1, function(){
+    	setTimer(1, 0, function(){
     		err = -1;
     	});
+
+		return;
 	}
 
 	// less than min bet
@@ -220,9 +224,11 @@ function ErrorHandling(){
 		let width = measureText("Your Min Bet is $" + table.minBet, (largeFont*2) + "px customfont");
     	drawText("black", (largeFont*2) + "px customfont", "Your Min Bet is $" + table.minBet, CANVAS_WIDTH/2-width.width*1.75, CANVAS_HEIGHT/2);
 
-    	setTimer(1, function(){
+    	setTimer(1, 0, function(){
     		err = -1;
     	});
+
+		return;
 	}
 
 	// all in for ai
@@ -230,22 +236,34 @@ function ErrorHandling(){
 		let width = measureText((ai.chips+ai.bet) + "$ max bet for A.I.", (largeFont*2) + "px customfont");
     	drawText("black", (largeFont*2) + "px customfont", (ai.chips+ai.bet) + "$ max bet for A.I.", CANVAS_WIDTH/2-width.width*1.75, CANVAS_HEIGHT/2);
 
-    	setTimer(1, function(){
+    	setTimer(1, 0, function(){
     		err = -1;
     	});
+
+		return;
 	}
 
 }
 
-function setTimer(time, func){
-	if(timer == 0){
-    	timer = totalTime;
-    }		
 
-    if(totalTime - timer > time){
-    	func();
-    	timer = 0;
-    }
+function setTimer(time, index, func){
+	if(timers[index] == 0){
+		timers[index] = {
+			"start": totalTime, 
+			"func": func,
+			"time": time
+		};
+		return;
+	}	
+}
+
+function updateTimers(){
+	for (let index = 0; index < timers.length; index++) {
+		if(timers[index] != 0 && totalTime - timers[index].start > timers[index].time){
+			timers[index].func();
+			timers[index] = 0;
+		}
+	}
 }
 
 

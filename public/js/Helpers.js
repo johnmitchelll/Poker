@@ -102,6 +102,8 @@ function updateTimeSteps(){
 
     prevTotalTime = totalTime;
 
+    updateTimers();
+
     if(fpsClock == undefined || totalTime - fpsClock >= 0.5){
         fps = Math.floor(1 / elaspedTime);
         fpsClock = totalTime;

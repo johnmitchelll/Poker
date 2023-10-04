@@ -28,7 +28,8 @@ function getWinner(hand1Input, hand2Input, doNotDisplay){
 	let rank1 = handOrder.indexOf(best1.message);
 	let rank2 = handOrder.indexOf(best2.message);
 
-	// console.log(best1, best2);
+	// make sure that we always get the win screen
+	timers[2] = 0;
 
 	if(rank1 != rank2){
 		if(rank1 < rank2){

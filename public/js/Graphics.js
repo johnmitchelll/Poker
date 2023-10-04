@@ -40,15 +40,10 @@ function drawAll(){
 		drawImageFromSpriteSheetWithRotation(cardsPic, 160, 437, CARD_PIC_WIDTH, CARD_PIC_HEIGHT,50+i*-2,50+i*-2, CARD_WIDTH, CARD_HEIGHT);
 	}
 
-	// for (var i = 0; i < 3; i++) {
-	// 	drawImageFromSpriteSheetWithRotation(chipsPic, i*30-1, 0, 30, 30, 200+i*30, 200, 30, 30);
-	// }
+	canvasAlign();
 
 	table.display();
 
-	// console.log(stage)
-
-	// drawText("black", "32px customfont", "hello", 400, 200)
 }
 
 var cards = [{"card":"As","sx":7,"sy":7},{"card":"Ah","sx":7,"sy":115},{"card":"Ac","sx":7,"sy":222},{"card":"Ad","sx":7,"sy":329},
@@ -64,3 +59,25 @@ var cards = [{"card":"As","sx":7,"sy":7},{"card":"Ah","sx":7,"sy":115},{"card":"
 			 {"card":"Js","sx":771,"sy":7},{"card":"Jh","sx":771,"sy":115},{"card":"Jc","sx":771,"sy":222},{"card":"Jd","sx":771,"sy":329},
 			 {"card":"Qs","sx":847,"sy":7},{"card":"Qh","sx":847,"sy":115},{"card":"Qc","sx":847,"sy":222},{"card":"Qd","sx":847,"sy":329},
 			 {"card":"Ks","sx":923,"sy":7},{"card":"Kh","sx":923,"sy":115},{"card":"Kc","sx":923,"sy":222},{"card":"Kd","sx":923,"sy":329}]
+
+
+function canvasAlign(){
+	if(prevWindowDimentions.width != window.innerWidth || prevWindowDimentions.height != window.innerWidth){
+		prevWindowDimentions.width = window.innerWidth;
+		prevWindowDimentions.height = window.innerHeight;
+	}
+
+	let gameCanvas = document.getElementById("gameCanvas");
+
+	// when screen is skinny
+	let possibleHeight = 675*window.innerWidth/1000;
+	if(possibleHeight <= window.innerHeight){
+		gameCanvas.style.width = window.innerWidth + "px";
+		gameCanvas.style.height = possibleHeight + "px";
+		return;
+	}
+
+	// when screen is wide
+	gameCanvas.style.width = 1000*window.innerHeight/675 + "px";
+	gameCanvas.style.height = window.innerHeight + "px";
+}

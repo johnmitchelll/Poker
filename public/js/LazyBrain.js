@@ -75,15 +75,20 @@ function LazyBrain(){
 
 			// if ai calls for either its all in or human all in
 			if(stage == -1 || scene == -1){
+				console.log("stuck scene")
 				return;
 			}
+
+			if(scene == 2 || ai.dealer){
+				table.seeNext();
+			}					
 
 			if(human.straddle){
 				human.straddle = false;
 				return;
 			}
 
-			if(scene == 2 || ai.dealer || (human.straddle == false && stage == 1 && table.bet != table.minBet)){
+			if(human.straddle == false && stage == 1 && table.bet != table.minBet){
 				table.seeNext();
 			}
 
@@ -146,7 +151,7 @@ function getPostFlopValue(river, finalBets){
 			return 0;
 		}
 
-		return Math.random() + 0.5;
+		return Math.random()/2 + 0.5;
 	}
 
 
@@ -195,13 +200,11 @@ function getOutcomeOfInstance(humanHand, aiHand, deckCopy, losses, wins, chops, 
 
 function makeDecisionPreflop(impliedBettingStrategy){
 
-	let equityLossAllowance = Math.max(table.pot+ai.bet, table.minBet)/table.bet;
+	let equityLossAllowance;
+
+	// console.log("////////////////////////////////")
 
 	// console.log("impliedBettingStrategy: " + impliedBettingStrategy);
-
-	if(impliedBettingStrategy == -1){
-		return -1;
-	}
 
 	if(impliedBettingStrategy < 0){
 		if(ai.dealer && table.bet == table.minBet && scene == 1){
@@ -214,15 +217,22 @@ function makeDecisionPreflop(impliedBettingStrategy){
 			return -2;
 		}
 
-		equityLossAllowance = table.minBet*2/table.bet;
+		// if human puts us all in then we fold when we are down.
+		if(table.bet >= ai.chips + ai.bet){
+			return -1;
+		}
+
+		equityLossAllowance = (table.minBet*4+ai.bet)/Math.min(table.bet, ai.chips+ai.bet);
+		equityLossAllowance *= -1;
+		equityLossAllowance = Math.max(equityLossAllowance, -1);
 		// console.log("equityLossAllowance: " + equityLossAllowance);
 		
-		if(Math.random() < 0.2 && scene == 2 && impliedBettingStrategy > -equityLossAllowance){
+		if(Math.random() < 0.2 && scene == 2 && impliedBettingStrategy > equityLossAllowance){
 			// call postflop
 			return -3;
 		}
 
-		if(Math.random() < 0.6 && scene == 1  && impliedBettingStrategy > -equityLossAllowance){
+		if(Math.random() < 0.6 && scene == 1  && impliedBettingStrategy > equityLossAllowance){
 			// call preflop
 			return -3;
 		}
@@ -232,42 +242,69 @@ function makeDecisionPreflop(impliedBettingStrategy){
 	}
 
 
-	// console.log("equityLossAllowance: " + equityLossAllowance);
+
+	// calculating this because yes, we have the odds, but is our equity enough to win in the long run
+	equityLossAllowance = Math.min(table.bet, ai.chips+ai.bet) / Math.max(table.pot+ai.bet, table.minBet*8)
+	equityLossAllowance = equityLossAllowance*2 - 1;
 
 	// we need to go all in or fold
 	if(table.bet >= ai.chips + ai.bet){
-		if(lazyBrain.agression + impliedBettingStrategy >= 1-equityLossAllowance){
+		// console.log("equityLossAllowance: " + equityLossAllowance);
+		if(impliedBettingStrategy >= 0.7){
+			// console.log("we have the odds")
+			// call
 			return -3;
 		}
 
+		if(lazyBrain.agression + impliedBettingStrategy >= equityLossAllowance){
+			// call
+			return -3;
+		}
+
+		// fold
 		return -1;
 	}
 
 	// raise
 	let bettingRange = lazyBrain.agression + impliedBettingStrategy - lazyBrain.threshold;
+	let seed = Math.random();
 
-	// console.log(human.chips)
-	if(bettingRange > 0 && human.chips > 0 && Math.random > 0.2){
-		let betAmount = (table.bet*2) * (bettingRange+1);
+	// console.log("bettingRange: " + bettingRange)
+	// console.log("seed:" + seed)
+
+	// choosing our raise amount
+	if(bettingRange > 0 && human.chips > 0 && seed < 0.8){
+		let betAmount = (table.bet*2) * (bettingRange/2+1);
 
 		if(table.bet == 0){
-			// console.log("OPEN BET", table.pot, human.betAmount)
-			betAmount = table.pot*2 * bettingRange;
+			// open bet
+			betAmount = table.pot * bettingRange;
 			betAmount = Math.max(betAmount, table.minBet);
 		}
 
-		// console.log(betAmount);
-
-		return Math.ceil(betAmount);
+		// get the nearest multiple of 5
+		return Math.round(Math.ceil(betAmount) / 5) * 5;
 	}
 
+	// if we are choosing to play it cool and we have the option too
 	if(table.bet == 0 || (table.bet == table.minBet && scene == 1 && ai.dealer)){
 		// check
 		return -2;
 	}
 
-	// call
-	return -3;
+	// if the bet isnt too big or we just have the odds
+	if(impliedBettingStrategy >= 0.5){
+		// console.log("we have the odds")
+		// call
+		return -3;
+	}else if(lazyBrain.agression + impliedBettingStrategy >= equityLossAllowance){
+		// console.log("equityLossAllowance: " + equityLossAllowance);
+		// call
+		return -3;
+	}
+
+	// console.log("equityLossAllowance: " + equityLossAllowance);
+	return -1
 }
 
 

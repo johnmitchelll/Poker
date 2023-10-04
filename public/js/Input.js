@@ -202,8 +202,16 @@ function handleSInput(){
         allIn = true;
     }
 
+    // putting the ai all in
+    if(human.betAmount + human.bet >= ai.chips + ai.bet){
+        allIn = true;
+    }   
+
     if(human.betAmount > human.chips+human.bet){
         err = 0;
+        return true;
+    }else if(human.betAmount > ai.chips + ai.bet){
+        err = 3;
         return true;
     }else if(human.betAmount < table.bet*2 && allIn == false){
         err = 1;
@@ -214,7 +222,13 @@ function handleSInput(){
     }
 
     table.bet = human.betAmount;
-    human.raise(human.betAmount);
+
+    if(allIn){
+        human.raise(human.betAmount + human.bet);
+    }else{
+        human.raise(human.betAmount);
+    }
+    
     turn = "ai";
 
     s_held = true;

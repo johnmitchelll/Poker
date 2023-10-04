@@ -3,14 +3,53 @@ function Card(card, sx, sy){
     this.sx = sx;
     this.sy = sy;
     this.faceDown = false;
+    this.animate = true;
+    this.x = 42;
+    this.y = 42;
 
     this.display = function(dx, dy){
-        if(this.faceDown == false){
-            drawImageFromSpriteSheetWithRotation(cardsPic, this.sx, this.sy, CARD_PIC_WIDTH, CARD_PIC_HEIGHT, dx, dy, CARD_WIDTH, CARD_HEIGHT, 0, false);
+
+        if(this.animate){
+            this.animateUpdate(dx, dy);
             return;
         }
 
-        drawImageFromSpriteSheetWithRotation(cardsPic, 160, 437, CARD_PIC_WIDTH, CARD_PIC_HEIGHT, dx, dy, CARD_WIDTH, CARD_HEIGHT);
+
+        if(this.faceDown){
+            drawImageFromSpriteSheetWithRotation(cardsPic, 160, 437, CARD_PIC_WIDTH, CARD_PIC_HEIGHT, dx, dy, CARD_WIDTH, CARD_HEIGHT);
+            return;
+        }
+
+        drawImageFromSpriteSheetWithRotation(cardsPic, this.sx, this.sy, CARD_PIC_WIDTH, CARD_PIC_HEIGHT, dx, dy, CARD_WIDTH, CARD_HEIGHT, 0, false);
+    }
+
+    this.animateUpdate = function(dx, dy){
+        let angleBetweenPosAndDestination = Math.atan2(this.y - dy, this.x - dx);
+
+        let currentDist = distanceOfTwoPoints(this.x, this.y, 42, 42);
+        let wholeDist = distanceOfTwoPoints(dx, dy, 42, 42);
+
+        this.x -= Math.cos(angleBetweenPosAndDestination)*wholeDist/30;
+        this.y -= Math.sin(angleBetweenPosAndDestination)*wholeDist/30;
+
+        let percentComplete = currentDist / wholeDist;
+
+        if(this.faceDown){
+            drawImageFromSpriteSheetWithRotation(cardsPic, 160, 437, CARD_PIC_WIDTH, CARD_PIC_HEIGHT, this.x, this.y, CARD_WIDTH, CARD_HEIGHT);
+        }else{
+            if(percentComplete <= 0.5){
+                drawImageFromSpriteSheetWithRotation(cardsPic, 160, 437, CARD_PIC_WIDTH, CARD_PIC_HEIGHT, this.x, this.y, CARD_WIDTH*(1-percentComplete*2), CARD_HEIGHT);
+            }else{
+                drawImageFromSpriteSheetWithRotation(cardsPic, this.sx, this.sy, CARD_PIC_WIDTH, CARD_PIC_HEIGHT, this.x, this.y, CARD_WIDTH*(2*percentComplete-1), CARD_HEIGHT, 0, false);
+            }
+        }
+
+        let distToTarget = distanceOfTwoPoints(dx, dy, this.x, this.y);
+
+        // animation is done
+        if(distToTarget <= 1){
+            this.animate = false;
+        }
     }
 }
 
@@ -73,9 +112,11 @@ function Table(){
         // pot
         width = measureText("Pot: $" + this.pot, largeFont, "32px customfont");
         drawText("black", "32px customfont", "Pot: $" + this.pot, CANVAS_WIDTH/2+CANVAS_WIDTH/2.75-width.width, CANVAS_HEIGHT/2+CARD_HEIGHT/2-50);
+        colorRectNoFill(CANVAS_WIDTH/2+CANVAS_WIDTH/3.5-20, CANVAS_HEIGHT/2+CARD_HEIGHT/2-130, 185, 45, "white", 3);
 
         // pot chips
-        handleChipsOnBet(this.pot, CANVAS_WIDTH/2+CANVAS_WIDTH/2.75-width.width/4, CANVAS_HEIGHT/2+CARD_HEIGHT/2-120, false);
+        handleChipsOnBet(this.pot, CANVAS_WIDTH/2+CANVAS_WIDTH/2.75-width.width/4, CANVAS_HEIGHT/2+CARD_HEIGHT/2-122, false);
+
 
         // ai and human cards
         if(ai.cards[0]){
@@ -136,6 +177,8 @@ function Table(){
         // turn AI cards over
         for (var i = 0; i < 2; i++) {
             ai.cards[i].faceDown = true;
+
+            human.cards[i].animate = true;
         }
     }
 
@@ -317,11 +360,11 @@ function Player(){
             CANVAS_WIDTH/2+150+10, 5+(i+1)*(font+20));
         }
 
-        setTimeout(() => { 
+        setTimer(1, 2, () => {
             if(stop){
                 command = -1;
             }
-        }, 1000);
+        })
     }
 }
 
@@ -337,6 +380,7 @@ function newHand(){
     table.pot = 0;
     table.winner = undefined;
 
+    human.straddle = false;
     human.betAmount = 0;
     ai.betAmount = 0;
     human.bet = 0;
