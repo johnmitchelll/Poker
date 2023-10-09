@@ -18,8 +18,6 @@ function keyPressed(evt){
 
     playHand(evt.keyCode);
 
-    keyHoldRelease(evt.keyCode, true);
-
     evt.preventDefault();
 }
 
@@ -74,14 +72,48 @@ function updateMousePos(evt) {
 }
 
 function setMouseDown(evt){
+    let width = document.getElementById("gameCanvas").style.width;
+    let height = document.getElementById("gameCanvas").style.height;
+
+    width = parseFloat(width.slice(0, -2));
+    height = parseFloat(height.slice(0, -2));
+
+    let gameCanvas = document.getElementById("gameCanvas").getBoundingClientRect();
+
+	if(evt.changedTouches && evt.changedTouches[0]){
+		mouseX = (evt.changedTouches[0].pageX-gameCanvas.left)/width * CANVAS_WIDTH;
+		mouseY = (evt.changedTouches[0].pageY-gameCanvas.top)/height * CANVAS_HEIGHT;
+	}
+
     mouseDown = true;
+
+    evt.preventDefault();
+
+    keyHoldRelease(evt.keyCode, true); 
 }
 function setMouseUp(evt){
     mouseDown = false;
     mouseInBetKnob = false;
     prevMouseDown = false;
 }
-function touchMove(evt){}
+function touchMove(evt){
+    let width = document.getElementById("gameCanvas").style.width;
+    let height = document.getElementById("gameCanvas").style.height;
+
+    width = parseFloat(width.slice(0, -2));
+    height = parseFloat(height.slice(0, -2));
+
+    let gameCanvas = document.getElementById("gameCanvas").getBoundingClientRect();
+
+	if(evt.changedTouches[0]){
+		mouseX = (evt.changedTouches[0].pageX-gameCanvas.left)/width * CANVAS_WIDTH;
+		mouseY = (evt.changedTouches[0].pageY-gameCanvas.top)/height * CANVAS_HEIGHT;
+	}
+
+    evt.preventDefault();
+
+	mouseDown = true;
+}
 
 //////////////////////////////////////////
 
