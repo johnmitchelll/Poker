@@ -13,10 +13,8 @@
 
 function playHand(keycode){
 	handleChipsOnBet(ai.betAmount, CANVAS_WIDTH/2-(CARD_WIDTH*2.75), 100);
-	handleChipsOnBet(human.betAmount, CANVAS_WIDTH/2-(CARD_WIDTH*2.75), CANVAS_HEIGHT-150);
+	handleChipsOnBet(human.bet, CANVAS_WIDTH/2-(CARD_WIDTH*2.75), CANVAS_HEIGHT-150);
 
-	// console.log(stage, scene,)
-	// console.log(ai.allIn , human.allIn , ai.chips <= 0 , human.chips <= 0)
 
 	if(ai.allIn || human.allIn){
 		ai.display(true);
@@ -40,17 +38,14 @@ function playHand(keycode){
 	// show down get to next hand
 	if(stage == 3){
 		let width = measureText("Fold: \"f\"", largeFont, "32px customfont");
-	    drawText("black", "32px customfont", "Press \"s\" to", CANVAS_WIDTH/2+width.width*1.75, CANVAS_HEIGHT-210+largeFont);
-	    drawText("black", "32px customfont", "play the next hand...", CANVAS_WIDTH/2+width.width*1.75, CANVAS_HEIGHT-210+largeFont*2.5);
+		handleButtons(CANVAS_WIDTH/2+width.width*1.75, CANVAS_HEIGHT-210+largeFont+10, 265, 43, "Play Next Hand", S, Stage3Input)
 
 	    ai.display();
-
 	    Stage3Input(keycode);
 	    return;
 	}
 
 	ErrorHandling();
-
 	ai.display(true);
 
 	// pre deal
@@ -60,16 +55,15 @@ function playHand(keycode){
 
 			let width = measureText("Fold: \"f\"", largeFont, "32px customfont");
         	drawText("black", "32px customfont", "Enter Straddle:", CANVAS_WIDTH/2+width.width*1.75, CANVAS_HEIGHT-210+largeFont);
-        	drawText("black", "32px customfont", human.betAmount, CANVAS_WIDTH/2+width.width*1.75, CANVAS_HEIGHT-210+largeFont*2.5);
+        	
+			handleBetFrame(640, 495);
+			drawText("black", "32px customfont", human.betAmount, CANVAS_WIDTH-CANVAS_WIDTH/10, CANVAS_HEIGHT-210+largeFont*2.5);
 
-        	drawText("black", "32px customfont", "To continue", CANVAS_WIDTH/2+width.width*1.75, CANVAS_HEIGHT-210+largeFont*4);
-        	drawText("black", "32px customfont", "press: \"s\"", CANVAS_WIDTH/2+width.width*1.75, CANVAS_HEIGHT-210+largeFont*5.5);
+			handleButtons(CANVAS_WIDTH/2+width.width*1.75, CANVAS_HEIGHT-210+80, 165, 40, "Continue", S, Scene0Input);
 
         	Scene0Input(keycode);
         	return;
 		}
-
-		// console.log("PRE DEAL AI DECISION")
 
 		turn = "human";
 		ai.raise(table.minBet);
@@ -100,12 +94,15 @@ function playHand(keycode){
 		// bet into you
 		if(stage == 0){
 			let width = measureText("Fold: \"f\"", largeFont, "32px customfont");
-	        drawText("black", "32px customfont", "Fold: \"f\"", CANVAS_WIDTH/2+width.width*1.75, CANVAS_HEIGHT-210+largeFont);
-	        drawText("black", "32px customfont", "Call: \"c\"", CANVAS_WIDTH/2+width.width*1.75, CANVAS_HEIGHT-210+largeFont*2.5);
+			handleButtons(CANVAS_WIDTH/2+width.width*1.75, CANVAS_HEIGHT-220, 97, 40, "Fold", F, Stage0Input);
+			handleButtons(CANVAS_WIDTH/2+width.width*1.75+130, CANVAS_HEIGHT-220, 87, 40, "Call", C, Stage0Input);
 
-	        drawText("black", "32px customfont", "Input Raise Amount:", CANVAS_WIDTH/2+width.width*1.75, CANVAS_HEIGHT-210+largeFont*4);
-	        drawText("black", "32px customfont", human.betAmount, CANVAS_WIDTH/2+width.width*1.75, CANVAS_HEIGHT-210+largeFont*5.5);
-	        drawText("black", "32px customfont", "Enter Raise: \"s\"", CANVAS_WIDTH/2+width.width*1.75, CANVAS_HEIGHT-210+largeFont*7);
+	        drawText("black", "32px customfont", "Input Raise Amount:", CANVAS_WIDTH/2+width.width*1.75, CANVAS_HEIGHT-210+largeFont*3);
+	        
+			handleBetFrame(640, 540);
+			drawText("black", "32px customfont", human.betAmount, CANVAS_WIDTH-CANVAS_WIDTH/10, CANVAS_HEIGHT-210+largeFont*4.5);
+	       
+			handleButtons(CANVAS_WIDTH/2+width.width*1.75, CANVAS_HEIGHT-210+largeFont*5.5, 220, 40, "Enter Raise", S, Stage0Input);
 
 	        Stage0Input(keycode);
 		}
@@ -113,10 +110,14 @@ function playHand(keycode){
 		// option (no bet into you)
 		if(stage == 1 || stage == 2){
 			let width = measureText("Fold: \"f\"", largeFont, "32px customfont");
-	        drawText("black", "32px customfont", "Check: \"c\"", CANVAS_WIDTH/2+width.width*1.75, CANVAS_HEIGHT-210+largeFont);
-	        drawText("black", "32px customfont", "Input Bet Amount:", CANVAS_WIDTH/2+width.width*1.75, CANVAS_HEIGHT-210+largeFont*2.5);
-	        drawText("black", "32px customfont", human.betAmount, CANVAS_WIDTH/2+width.width*1.75, CANVAS_HEIGHT-210+largeFont*4);
-	        drawText("black", "32px customfont", "Enter Bet: \"s\"", CANVAS_WIDTH/2+width.width*1.75, CANVAS_HEIGHT-210+largeFont*5.5);
+			handleButtons(CANVAS_WIDTH/2+width.width*1.75, CANVAS_HEIGHT-220, 115, 40, "Check", C, Stage1Input);
+
+	        drawText("black", "32px customfont", "Input Bet Amount:", CANVAS_WIDTH/2+width.width*1.75, CANVAS_HEIGHT-210+largeFont*2.5+15);
+	        
+			handleBetFrame(640, 545);
+			drawText("black", "32px customfont", human.betAmount, CANVAS_WIDTH-CANVAS_WIDTH/10, CANVAS_HEIGHT-210+largeFont*4+15);
+	       
+			handleButtons(CANVAS_WIDTH/2+width.width*1.75, CANVAS_HEIGHT-210+largeFont*5.5, 220, 40, "Enter Raise", S, Stage0Input);
 
 	        Stage1Input(keycode);
 		}
@@ -265,10 +266,6 @@ function updateTimers(){
 		}
 	}
 }
-
-
-
-
 
 
 

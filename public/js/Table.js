@@ -160,6 +160,12 @@ function Table(){
 
     this.deal = function(){
 
+        playCardNoise();
+
+        setTimeout(() => { 
+            playCardNoise();
+        }, 500);
+
         if(ai.dealer == true){
             human.cards.push(deck.pop());
             ai.cards.push(deck.pop());
@@ -211,6 +217,7 @@ function Table(){
         human.bet = 0;
         ai.bet = 0;
         table.bet = 0;
+        betKnobRelativePos = 0;
     }
 
 
@@ -231,10 +238,13 @@ function Table(){
 
             setTimeout(() => { 
                 table.flipNextCard();
+                playCardNoise()
                 setTimeout(() => { 
                     table.flipNextCard();
+                    playCardNoise()
                     setTimeout(() => { 
                         table.flipNextCard();
+                        playCardNoise()
                         setTimeout(() => { 
                             scene = 2;
                             stage = 1;
@@ -250,6 +260,7 @@ function Table(){
             stage = -1;
             setTimeout(() => { 
                 table.flipNextCard();
+                playCardNoise()
                 setTimeout(() => { 
                     stage = 1;
                 }, 1000);
@@ -278,6 +289,8 @@ function Player(){
 
     this.raise = function(amount, display){
         let totalChips = this.chips + this.bet;
+
+        playChipNoise();
 
         this.chips = totalChips - amount;
         this.betAmount = amount;
@@ -310,6 +323,8 @@ function Player(){
 
     this.call = function(display){ 
         let totalChips = this.chips + this.bet;
+
+        playChipNoise();
 
         if(table.bet >= totalChips){
             this.betAmount = totalChips;

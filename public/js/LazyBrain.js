@@ -10,6 +10,9 @@ function LazyBrain(){
 
     this.makeDecision = function(phase){
 
+		betKnobRelativePos = 0;
+		human.autoBet = true;
+
         turn = "human";
 		this.agression = Math.random()/2.5 - 1/5;
 		let decision;
@@ -58,6 +61,7 @@ function LazyBrain(){
 		// check
 		if(decision == -2){
 			command = ["A.I. Checks"];
+			check.play();
 			
 			if(ai.dealer){
 				table.seeNext();

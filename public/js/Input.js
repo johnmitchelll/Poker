@@ -2,6 +2,8 @@
 var mouseX;
 var mouseY;
 var mouseDown = false;
+var prevMouseDown = false;
+var mouseInBetKnob = false;
 
 const S = 83;
 const C = 67;
@@ -13,6 +15,7 @@ var c_held = false;
 var s_held = false;
 
 function keyPressed(evt){ 
+
     playHand(evt.keyCode);
 
     keyHoldRelease(evt.keyCode, true);
@@ -47,7 +50,10 @@ function keyHoldRelease(keyCode, held){
 
 document.addEventListener('keydown', keyPressed)
 document.addEventListener('keyup', keyReleased)
+
 document.addEventListener('mousemove', updateMousePos);
+document.addEventListener('mouseup', setMouseUp);
+document.addEventListener('mousedown', setMouseDown);
 
 document.addEventListener('touchstart', setMouseDown, { passive: false});
 document.addEventListener('touchend', setMouseUp, { passive: false});
@@ -57,18 +63,30 @@ function updateMousePos(evt) {
   var rect = canvas.getBoundingClientRect();
   var root = document.documentElement;
 
-  mouseX = (evt.clientX - rect.left) - canvas.width/2;
-  mouseY = (evt.clientY - rect.top) - CANVAS_HEIGHT/2;
+  let width = document.getElementById("gameCanvas").style.width;
+  let height = document.getElementById("gameCanvas").style.height;
+
+  width = parseFloat(width.slice(0, -2));
+  height = parseFloat(height.slice(0, -2));
+
+  mouseX = (evt.clientX - rect.left)/width * CANVAS_WIDTH;
+  mouseY = (evt.clientY - rect.top)/height  * CANVAS_HEIGHT;
 }
 
-function setMouseDown(evt){}
-function setMouseUp(evt){}
+function setMouseDown(evt){
+    mouseDown = true;
+}
+function setMouseUp(evt){
+    mouseDown = false;
+    mouseInBetKnob = false;
+    prevMouseDown = false;
+}
 function touchMove(evt){}
 
 //////////////////////////////////////////
 
-
 function Scene0Input(keyCode){
+
     if(keyCode == S && s_held == false){
 
         human.autoBet = true;
@@ -79,6 +97,7 @@ function Scene0Input(keyCode){
         }else if(handleSInput() == false){
             human.straddle = true;
         }else if(handleSInput()){
+            console.log("HI")
             return;
         }
         
@@ -87,7 +106,6 @@ function Scene0Input(keyCode){
         
         table.deal();
         scene = 1;
-        s_held = true;
         turn = "ai";
     }
 
@@ -101,7 +119,6 @@ function Stage0Input(keyCode){
         human.call();
 
         turn = "ai";
-        c_held = true;
         stage = 1;
 
 
@@ -135,8 +152,8 @@ function Stage1Input(keyCode){
 
     // check
     if(keyCode == C && c_held == false){
+        check.play();
         turn = "ai";
-        c_held = true;
 
         if(human.dealer){
             table.seeNext();
@@ -172,7 +189,6 @@ function Stage3Input(keycode){
         }
         
         newHand();
-        s_held = true;
     }
 }
 
@@ -231,15 +247,12 @@ function handleSInput(){
     
     turn = "ai";
 
-    s_held = true;
     return false;
 }
 
 
 
 function handleHumanBetAmount(keyCode){
-    
-
     // number
     if(keyCode >= 48 && keyCode <= 57){
         if(human.autoBet){
