@@ -8,8 +8,8 @@ var chips2 = new Audio('../sounds/chips2.mp3');
 var chips3 = new Audio('../sounds/chips3.mp3');
 var chips4 = new Audio('../sounds/chips4.mp3');
 var chips5 = new Audio('../sounds/chips5.mp3');
-var shuffle = new Audio('../sounds/shuffle.mp3');
 var check = new Audio('../sounds/check.mp3');
+var fold = new Audio('../sounds/fold.mp3');
 
 
 function playChipNoise(){

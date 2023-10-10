@@ -95,14 +95,14 @@ function playHand(keycode){
 		if(stage == 0){
 			let width = measureText("Fold: \"f\"", largeFont, "32px customfont");
 			handleButtons(CANVAS_WIDTH/2+width.width*1.75, CANVAS_HEIGHT-220, 97, 40, "Fold", F, Stage0Input);
-			handleButtons(CANVAS_WIDTH/2+width.width*1.75+130, CANVAS_HEIGHT-220, 87, 40, "Call", C, Stage0Input);
+			handleButtons(CANVAS_WIDTH/2+width.width*1.75+130, CANVAS_HEIGHT-220, 90, 40, "Call", C, Stage0Input);
 
 	        drawText("black", "32px customfont", "Input Raise Amount:", CANVAS_WIDTH/2+width.width*1.75, CANVAS_HEIGHT-210+largeFont*3);
 	        
 			handleBetFrame(640, 540);
 			drawText("black", "32px customfont", human.betAmount, CANVAS_WIDTH-CANVAS_WIDTH/10, CANVAS_HEIGHT-210+largeFont*4.5);
 	       
-			handleButtons(CANVAS_WIDTH/2+width.width*1.75, CANVAS_HEIGHT-210+largeFont*5.5, 220, 40, "Enter Raise", S, Stage0Input);
+			handleButtons(CANVAS_WIDTH/2+width.width*1.75, CANVAS_HEIGHT-210+largeFont*5.5, 217, 40, "Enter Raise", S, Stage0Input);
 
 	        Stage0Input(keycode);
 		}
@@ -117,7 +117,7 @@ function playHand(keycode){
 			handleBetFrame(640, 545);
 			drawText("black", "32px customfont", human.betAmount, CANVAS_WIDTH-CANVAS_WIDTH/10, CANVAS_HEIGHT-210+largeFont*4+15);
 	       
-			handleButtons(CANVAS_WIDTH/2+width.width*1.75, CANVAS_HEIGHT-210+largeFont*5.5, 220, 40, "Enter Raise", S, Stage0Input);
+			handleButtons(CANVAS_WIDTH/2+width.width*1.75, CANVAS_HEIGHT-210+largeFont*5.5, 217, 40, "Enter Raise", S, Stage0Input);
 
 	        Stage1Input(keycode);
 		}

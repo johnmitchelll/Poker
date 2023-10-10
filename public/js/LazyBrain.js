@@ -55,6 +55,7 @@ function LazyBrain(){
 			table.pot = 0;
 			ai.cards = [];
 			stage = 3;
+			fold.play();
 			return;
 		}
 		
