@@ -1,33 +1,42 @@
 const { Router } = require("express");
 const router = Router();
 
+const { hashpassword, comparepassword } = require('../utils/helpers.js');
+
 const User = require("../database/schemas/User");
 
-router.post("/login", (request, response) => {
+
+
+router.post("/login", async (request, response) => {
     const { username, password } = request.body;
 
-    if(username && password){
-        if(request.session.user){
-            response.send(request.session.user);
-        }else{
-            request.session.user = {
-                username
-            };
+    if(!username || !password) return response.send(400);
 
-            response.send(request.session);
-        }
-    } else response.send(401);
+    const userDB = await User.findOne({ username });
+    if(!userDB) return response.json({ msg: "User Does Not Exsist" });
+
+    const isValid = comparepassword(password, userDB.password);
+
+    if(isValid){
+        request.session.user = userDB;
+        console.log(request.session);
+        response.json({ msg: "Success" });
+    }else{
+        response.json({ msg: "Incorrect Password" });
+    }
 });
 
 router.post('/register', async (request, response) => {
-    const { username, password } = request.body;
-    const userDB = await User.findOne({ $or: [{ username }]});
+    const { username  } = request.body;
+    const userDB = await User.findOne({ username });
 
     if(userDB){
-        response.status(400).send({ msg: "USER EXISTS" });
+        response.json({ msg: "User Already Exists" });
     }else{
-       const newUser = await User.create({ username, password });
-       response.send(201);
+        request.session.user = userDB;
+        const password = hashpassword(request.body.password);
+        const newUser = await User.create({ username, password });
+        respon.json({ msg: "Success" });
     }
 });
 

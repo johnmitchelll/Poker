@@ -26,13 +26,12 @@ var buttonFramePic = document.createElement("img");
 var largeFont = SCREEN_AREA/30;
 var smallFont = SCREEN_AREA/40;
 
-function loadImages(){
-	cardsPic.src = "imgs/cards.png";
-	chipsPic.src = "imgs/chips.png";
-	chips2Pic.src = "imgs/chips2.png";
-	betFramePic.src = "imgs/bet_frame.png";
-	buttonFramePic.src = "imgs/button_frame.png";
-}
+// load the images
+cardsPic.src = "imgs/cards.png";
+chipsPic.src = "imgs/chips.png";
+chips2Pic.src = "imgs/chips2.png";
+betFramePic.src = "imgs/bet_frame.png";
+buttonFramePic.src = "imgs/button_frame.png";
 
 
 function drawAll(){

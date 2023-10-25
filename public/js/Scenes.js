@@ -15,7 +15,6 @@ function playHand(keycode){
 	handleChipsOnBet(ai.betAmount, CANVAS_WIDTH/2-(CARD_WIDTH*2.75), 100);
 	handleChipsOnBet(human.bet, CANVAS_WIDTH/2-(CARD_WIDTH*2.75), CANVAS_HEIGHT-150);
 
-
 	if(ai.allIn || human.allIn){
 		ai.display(true);
 
@@ -45,6 +44,10 @@ function playHand(keycode){
 	    return;
 	}
 
+	// menu button
+	handleButtons(20, CANVAS_HEIGHT-60, 100, 40, "Menu", M, goToMenu);
+
+	goToMenu(keycode);
 	ErrorHandling();
 	ai.display(true);
 

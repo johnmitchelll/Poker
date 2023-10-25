@@ -50,6 +50,7 @@ function LazyBrain(){
 		if(decision == -1){
 			command = ["A.I. Folds"];
 			human.chips += ai.bet + human.bet + table.pot;
+			sessionData.push(Math.floor((human.chips-human.extraBuyIn-ai.chips+ai.extraBuyIn)/2));
 			human.betAmount = 0;
 			ai.betAmount = 0;
 			table.pot = 0;
@@ -80,7 +81,7 @@ function LazyBrain(){
 
 			// if ai calls for either its all in or human all in
 			if(stage == -1 || scene == -1){
-				console.log("stuck scene")
+				// console.log("stuck scene")
 				return;
 			}
 

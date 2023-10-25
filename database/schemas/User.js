@@ -4,6 +4,7 @@ const UserSchema = new mongoose.Schema({
     username: {
         type: mongoose.SchemaTypes.String,
         required: true,
+        unique: true
     },
     password: {
         type: mongoose.SchemaTypes.String,
@@ -13,6 +14,26 @@ const UserSchema = new mongoose.Schema({
         type: mongoose.SchemaTypes.Date,
         required: true,
         default: Date.now(),
+    }, 
+    totalWinnings:{
+        type: mongoose.SchemaTypes.Number,
+        required: true,
+        default: 0,
+    }, 
+    bestSessionWinnings:{
+        type: mongoose.SchemaTypes.Number,
+        required: true,
+        default: 0,
+    },
+    handsPlayed:{
+        type: mongoose.SchemaTypes.Number,
+        required: true,
+        default: 0,
+    },
+    topTen:{
+        type: mongoose.SchemaTypes.String,
+        required: true,
+        default: "00",
     }
 });
 

@@ -9,27 +9,23 @@ const S = 83;
 const C = 67;
 const F = 70;
 const A = 65;
+const M = 77;
 const DELETE = 8;
 const ENTER = 13;
 var c_held = false;
 var s_held = false;
 
 function keyPressed(evt){ 
-
     playHand(evt.keyCode);
-
     evt.preventDefault();
 }
 
 function keyReleased(evt){ 
-
     keyHoldRelease(evt.keyCode, false);
-
     evt.preventDefault();
 }
 
 function keyHoldRelease(keyCode, held){
-
     c_held = false;
     s_held = false;
 
@@ -153,7 +149,6 @@ function Stage0Input(keyCode){
         turn = "ai";
         stage = 1;
 
-
         if(scene == 2 || (scene == 1 && table.bet > table.minBet)){
             table.pushBets();
             table.seeNext();
@@ -164,6 +159,8 @@ function Stage0Input(keyCode){
     // fold
     if(keyCode == F){
         ai.chips += human.bet + ai.bet + table.pot;
+        sessionData.push(Math.floor((human.chips-human.extraBuyIn-ai.chips+ai.extraBuyIn)/2));
+
         human.betAmount = 0;
 		ai.betAmount = 0;
         human.cards = [];
@@ -211,15 +208,18 @@ function Stage3Input(keycode){
 
         if(table.winner == "hand1"){
             human.chips += amount;
+            sessionData.push(Math.floor((human.chips-human.extraBuyIn-ai.chips+ai.extraBuyIn)/2));
         }
 
         if(table.winner == "hand2"){
             ai.chips += amount;
+            sessionData.push(Math.floor((human.chips-human.extraBuyIn-ai.chips+ai.extraBuyIn)/2));
         }
 
         if(table.winner == "chop"){  
             ai.chips += Math.floor(amount/2);
             human.chips += Math.floor(amount/2);
+            sessionData.push(Math.floor((human.chips-human.extraBuyIn-ai.chips+ai.extraBuyIn)/2));
         }
         
         newHand();
@@ -236,6 +236,8 @@ function Stage4Input(keycode){
     // fold
     if(keyCode == F){
         ai.chips += human.bet + ai.bet + table.pot;
+        sessionData.push(Math.floor((human.chips-human.extraBuyIn-ai.chips+ai.extraBuyIn)/2));
+
         human.betAmount = 0;
 		ai.betAmount = 0;
         human.cards = [];
@@ -245,6 +247,7 @@ function Stage4Input(keycode){
     }
 
 }
+
 
 function handleSInput(){
     let allIn = false; 
@@ -322,5 +325,33 @@ function handleHumanBetAmount(keyCode){
         let newAmount = amount.slice(0, amount.length - 1)
 
         human.betAmount = parseInt(newAmount);
+    }
+}
+
+
+function goToMenu(keycode){
+
+    if(keycode == M){
+        var envState = {
+            deck,
+            table,
+            ai,
+            human,
+            lazyBrain,
+            scene,
+            stage,
+            turn,
+            err,
+            command,
+            prevWindowDimentions,
+            betKnobRelativePos,
+            timers,
+            sessionData
+        }
+
+        updateUserStats();
+
+        localStorage.setItem("envState", JSON.stringify(envState));
+        window.location.href = "./menu";
     }
 }

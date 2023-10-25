@@ -281,6 +281,7 @@ function Player(){
     this.dealer = false;
     this.autoBet = false;
     this.straddle = false;
+    this.extraBuyIn = 0;
 
     // bet amount is amount displayed bet is actual bet
     this.betAmount = 0;
@@ -403,15 +404,22 @@ function newHand(){
 
     if(ai.chips <= 0){
         ai.chips = 1000;
+        ai.extraBuyIn += 1000;
     }
 
     if(human.chips <= 0){
         human.chips = 1000;
+        human.extraBuyIn += 1000;
     }
 
     pushBlinds();
     scene = 0;
     stage = 0;
+
+
+    if((sessionData.length-1) % 10 == 0){
+        updateUserStats();
+    }
 }
 
 function pushBlinds(){

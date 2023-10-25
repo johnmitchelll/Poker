@@ -5,7 +5,8 @@ const session = require("express-session");
 require('./database');
 
 const authRoute = require('./routes/auth');
-const userRoute = require('./routes/scoreboard');
+const userRoute = require('./routes/edit');
+const readRoute = require('./routes/read');
 
 
 const app = express();
@@ -19,14 +20,15 @@ app.use(
     })
 );
 
-
 app.use((req, res, next) =>{
     console.log(req.method + ':' + req.url);
     next();
 });
 
-app.use('/api/v1/scoreboard', userRoute);
-app.use('/api/v1/auth', authRoute);
+
+app.use('/edit', userRoute);
+app.use('/auth', authRoute);
+app.use('/read', readRoute);
 
 
 const port = process.env.PORT || 3001;

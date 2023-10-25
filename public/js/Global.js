@@ -15,3 +15,7 @@ var prevWindowDimentions = {width:0, height:0};
 var betKnobRelativePos = 0;
 
 var timers = [0,0,0];
+
+var sessionData = [0];
+
+var userData;

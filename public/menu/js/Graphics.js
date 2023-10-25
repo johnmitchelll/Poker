@@ -1,26 +1,28 @@
 const CANVAS_WIDTH = 1000;
 const CANVAS_HEIGHT = 675;
+const CARD_WIDTH = 70;
+const CARD_HEIGHT = 100;
+const CARD_PIC_WIDTH = 73;
+const CARD_PIC_HEIGHT = 105;
 
+const GREEN = "rgb(64,122,93)";
+var cardsPic = document.createElement("img");
 
 function loadImages(){
-
+	cardsPic.src = "../imgs/cards.png";
 }
 
 
 function drawAll(){
-
-	colorRect(0, 0, CANVAS_WIDTH, CANVAS_HEIGHT, GREEN);
-
-	//drawDeck
-	for (var i = 0; i < 5; i++) {
-		drawImageFromSpriteSheetWithRotation(cardsPic, 160, 437, CARD_PIC_WIDTH, CARD_PIC_HEIGHT,50+i*-2,50+i*-2, CARD_WIDTH, CARD_HEIGHT);
-	}
-
 	canvasAlign();
+	colorRect(0, 0, CANVAS_WIDTH, CANVAS_HEIGHT, GREEN);
+	// drawImageFromSpriteSheetWithRotation(background, 0, 0, 500, 376, 0, 0, CANVAS_WIDTH, CANVAS_HEIGHT);
 
-	table.display();
-
+	animateDeck();
+	
+	handleMenu();
 }
+
 
 var cards = [{"card":"As","sx":7,"sy":7},{"card":"Ah","sx":7,"sy":115},{"card":"Ac","sx":7,"sy":222},{"card":"Ad","sx":7,"sy":329},
 			 {"card":"2s","sx":84,"sy":7},{"card":"2h","sx":84,"sy":115},{"card":"2c","sx":84,"sy":222},{"card":"2d","sx":84,"sy":329},
