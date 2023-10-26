@@ -8,7 +8,6 @@ const authRoute = require('./routes/auth');
 const userRoute = require('./routes/edit');
 const readRoute = require('./routes/read');
 
-
 const app = express();
 app.use(express.json());
 
