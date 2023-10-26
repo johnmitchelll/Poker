@@ -57,7 +57,7 @@ async function start(){
 
 
 	var retrievedEnvState = localStorage.getItem("envState");
-	if(retrievedEnvState != 'undefined'){
+	if(retrievedEnvState != 'undefined' && retrievedEnvState != null  && retrievedEnvState != undefined){
 		retrievedEnvState = JSON.parse(retrievedEnvState);
 		setState(retrievedEnvState);
 	}
