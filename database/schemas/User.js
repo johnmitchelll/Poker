@@ -23,7 +23,7 @@ const UserSchema = new mongoose.Schema({
     bestSessionWinnings:{
         type: mongoose.SchemaTypes.Number,
         required: true,
-        default: 0,
+        default: -10000000,
     },
     handsPlayed:{
         type: mongoose.SchemaTypes.Number,
