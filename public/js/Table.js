@@ -211,7 +211,7 @@ function Table(){
     }
 
     this.pushBets = function(){
-        this.pot += human.betAmount + ai.betAmount;
+        this.pot += human.bet + ai.bet;
         human.betAmount = 0;
         ai.betAmount = 0;
         human.bet = 0;
