@@ -57,18 +57,24 @@ function canvasAlign(){
 	}
 
 	let gameCanvas = document.getElementById("gameCanvas");
+	let slotsCanvas = document.getElementById("slotsCanvas");
+	
 
 	// when screen is skinny
 	let possibleHeight = 675*window.innerWidth/1000;
 	if(possibleHeight <= window.innerHeight){
 		gameCanvas.style.width = window.innerWidth + "px";
 		gameCanvas.style.height = possibleHeight + "px";
+		slotsCanvas.style.width = window.innerWidth + "px";
+		slotsCanvas.style.height = possibleHeight + "px";
 		return;
 	}
 
 	// when screen is wide
 	gameCanvas.style.width = 1000*window.innerHeight/675 + "px";
 	gameCanvas.style.height = window.innerHeight + "px";
+	slotsCanvas.style.width = 1000*window.innerHeight/675 + "px";
+	slotsCanvas.style.height = window.innerHeight + "px";
 }
 
 function getCharWidth(char, font) {

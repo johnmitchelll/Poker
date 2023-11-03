@@ -1,5 +1,5 @@
 
-var betSize = 25;
+var betSize = 50;
 
 
 function handleMenu(keycode){
