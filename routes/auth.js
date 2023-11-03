@@ -36,7 +36,7 @@ router.post('/register', async (request, response) => {
         request.session.user = userDB;
         const password = hashpassword(request.body.password);
         const newUser = await User.create({ username, password });
-        respon.json({ msg: "Success" });
+        response.json({ msg: "Success" });
     }
 });
 

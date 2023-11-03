@@ -45,7 +45,7 @@ function playHand(keycode){
 	}
 
 	// menu button
-	handleButtons(20, CANVAS_HEIGHT-60, 100, 40, "Menu", M, goToMenu);
+	handleButtons(20, CANVAS_HEIGHT-60, 215, 40, "Leave Table", M, goToMenu);
 
 	goToMenu(keycode);
 	ErrorHandling();
