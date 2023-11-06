@@ -262,12 +262,25 @@ function Table(){
                 table.flipNextCard();
                 playCardNoise()
                 setTimeout(() => { 
-                    stage = 1;
+
+                    // if(human.allIn == false && ai.allIn == false){
+                        stage = 1;
+                    // }
                 }, 1000);
             }, 1000);
            
             return;
         }   
+
+        if(human.allIn || ai.allIn){
+            setTimeout(() => { 
+                this.showDown();
+                human.allIn = false;
+                ai.allIn = false;
+            }, 2000);
+
+            return;
+        }
 
         this.showDown();
         human.allIn = false;

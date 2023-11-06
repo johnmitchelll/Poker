@@ -54,6 +54,9 @@ function sortTopTen(scoreboard, topTen){
     if(scoreboard == 1){
         topTen.sort(function(a, b){return b.totalWinnings - a.totalWinnings});
     }
+    if(scoreboard == 2){
+        topTen.sort(function(a, b){return b.bestSessionSlots - a.bestSessionSlots});
+    }
 
     return topTen;
 }
