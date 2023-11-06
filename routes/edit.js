@@ -5,6 +5,8 @@ const User = require("../database/schemas/User");
 
 const { hashpassword, comparepassword } = require('../utils/helpers.js');
 
+const NUM_LEADERBOARDS = 3;
+
 // make sure the user is logged in
 // router.use((req, res, next) => {
 //     console.log(req.session);
@@ -34,13 +36,14 @@ router.post("/changeuserinfo", async (request, response) => {
         if(changeRequests[i] == "bestSessionWinnings"){
             await User.findOneAndUpdate({ username }, { bestSessionWinnings: values[i] });
         }
+        if(changeRequests[i] == "bestSessionSlots"){
+            await User.findOneAndUpdate({ username }, { bestSessionSlots: values[i] });
+        }
         if(changeRequests[i] == "handsPlayed"){
             await User.findOneAndUpdate({ username }, { handsPlayed: values[i] });
         }
         if(changeRequests[i] == "name"){
             let possibleUsername = await User.findOne({ username: values[i] });
-
-            console.log(possibleUsername)
 
             if(possibleUsername){
                 return response.status(401).send({ msg:"Username is Taken" });
@@ -60,9 +63,17 @@ router.post("/leaderboard", async (request, response) => {
     // scoreboard == 1 for total score
     const { username, score, scoreboard } = request.body;
 
-    const onOneOffOne = changeStringChar(scoreboard, "1", "00");
-    let topTen = await User.find({$or:[{topTen: "11"},{topTen: onOneOffOne}]});
     const userDB = await User.findOne({ username });
+
+    const allUsers = await User.find({});
+    let topTen = allUsers.filter(obj => {
+      if (obj.topTen && obj.topTen.length > scoreboard) {
+        const charAtIndex = obj.topTen.charAt(scoreboard);
+        return charAtIndex === "1";
+      }
+      return false;
+    });
+
 
     if(!userDB){
         return response.send(400);
@@ -83,8 +94,13 @@ router.post("/leaderboard", async (request, response) => {
 
         topTen = sortTopTen(scoreboard, topTen);
 
-        await User.findOneAndUpdate({ username }, { topTen: userTopTenValue } );
-        topTen = await User.find({$or:[{topTen: "11"},{topTen: onOneOffOne}]});
+        topTen = allUsers.filter(obj => {
+        if (obj.topTen && obj.topTen.length > scoreboard) {
+            const charAtIndex = obj.topTen.charAt(scoreboard);
+            return charAtIndex === "1";
+        }
+        return false;
+        });
 
         response.status(201).send(JSON.stringify(topTen));
         return;
@@ -104,7 +120,9 @@ router.post("/leaderboard", async (request, response) => {
 
     // sort the list, if the score is bigger than the lowest score add it to the list, 
     // resort, change last elements tag to 0, change new elements tag to 1
-    if((score > topTen[topTen.length-1].bestSessionWinnings && scoreboard == 0) || (score > topTen[topTen.length-1].totalWinnings && scoreboard == 1)){
+    if((score > topTen[topTen.length-1].bestSessionWinnings && scoreboard == 0) || 
+       (score > topTen[topTen.length-1].totalWinnings && scoreboard == 1) || 
+       (score > topTen[topTen.length-1].bestSessionSlots && scoreboard == 2)){
         topTen.push(await User.findOne({ username }));
     }else{
         return response.status(201).send(JSON.stringify(topTen));
@@ -127,6 +145,12 @@ router.post("/leaderboard", async (request, response) => {
 
     response.status(201).send(JSON.stringify(topTen));
 });
+
+// router.post('/changeDB', async (request, response) => {
+//     await User.updateMany({}, {  bestSessionSlots: -1000000  });
+
+//     response.send(201);
+// });
 
 
 function changeStringChar(index, char, string){

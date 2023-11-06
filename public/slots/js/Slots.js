@@ -5,6 +5,7 @@ var slotsItemsLowestY = [385, 385, 385];
 var slotsItemSpinning = [false, false, false];
 
 var coins = 1000;
+var maxCoins = 10000000;
 
 var multiplier = 0;
 
@@ -70,6 +71,10 @@ function spinSlots(){
         return;
     }
 
+    if(betSize > coins){
+        return;
+    }
+
     insertCoin.play();
 
     winners = [false, false, false, false, false];
@@ -112,6 +117,12 @@ function handleWin(){
 
     if(multiplier > 0){
         win.play();
+    }
+
+    if(coins > maxCoins){
+        updateUserStats();
+        maxCoins = coins;
+        console.log("NEW HIGH SCORE");
     }
 }
 

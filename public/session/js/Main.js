@@ -8,6 +8,8 @@ var startTime;
 var fpsClock;
 var fps;
 
+var userData;
+
 window.onload = function() {
 	canvas = document.getElementById('gameCanvas');
 	canvasContext = canvas.getContext('2d');
@@ -27,6 +29,13 @@ function start(){
 	canvas.height = 675;
 	
 	startTime = Date.now();
+
+	userData = localStorage.getItem("userData");
+
+	if(!userData){
+		window.location.href = "../signin";
+		return;
+	}	
 
 	var retrievedEnvState = localStorage.getItem("envState");
 

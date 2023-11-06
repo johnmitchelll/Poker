@@ -21,7 +21,6 @@ var cardsPic = document.createElement("img");
 var chipsPic = document.createElement("img");
 var chips2Pic = document.createElement("img");
 var betFramePic = document.createElement("img");
-var buttonFramePic = document.createElement("img");
 
 var largeFont = SCREEN_AREA/30;
 var smallFont = SCREEN_AREA/40;
@@ -31,7 +30,6 @@ cardsPic.src = "imgs/cards.png";
 chipsPic.src = "imgs/chips.png";
 chips2Pic.src = "imgs/chips2.png";
 betFramePic.src = "imgs/bet_frame.png";
-buttonFramePic.src = "imgs/button_frame.png";
 
 
 function drawAll(){

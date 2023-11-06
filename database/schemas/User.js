@@ -30,10 +30,15 @@ const UserSchema = new mongoose.Schema({
         required: true,
         default: 0,
     },
+    bestSessionSlots:{
+        type: mongoose.SchemaTypes.Number,
+        required: true,
+        default: -10000000,
+    },
     topTen:{
         type: mongoose.SchemaTypes.String,
         required: true,
-        default: "00",
+        default: "000",
     }
 });
 

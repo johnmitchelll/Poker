@@ -8,6 +8,8 @@ var startTime;
 var fpsClock;
 var fps;
 
+var userData;
+
 window.onload =	function() {
 	canvas = document.getElementById('gameCanvas');
 	canvasContext = canvas.getContext('2d');
@@ -23,6 +25,13 @@ window.onload =	function() {
 
 
 async function  start(){
+	userData = localStorage.getItem("userData");
+
+	if(!userData){
+		window.location.href = "../signin";
+		return;
+	}
+
 	canvas.width  = 1000;
 	canvas.height = 675;
 	
@@ -30,6 +39,7 @@ async function  start(){
 
 	sessionLeaders = await getLeaderboardData(0);
 	allTimeLeaders = await getLeaderboardData(1);
+	slotsLeaders =  await getLeaderboardData(2);
 }
 
 

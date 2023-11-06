@@ -31,14 +31,12 @@ function start(){
 	textBoxes.push(new TextBox());
 	textBoxes.push(new TextBox());
 
-	// console.log(signIn("Johnny", "Cooper10"));
+	let localStorageUserData = localStorage.getItem("userData");
 
-	// var retrievedEnvState = localStorage.getItem("envState");
-
-	// if(retrievedEnvState != 'undefined'){
-	// 	retrievedEnvState = JSON.parse(localStorage.getItem("envState"));
-	// 	sessionData = retrievedEnvState.sessionData;
-	// }
+	if(localStorageUserData != null){
+		window.location.href = "../menu";
+		return;
+	}
 }
 
 

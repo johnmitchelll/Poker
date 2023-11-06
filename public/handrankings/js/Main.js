@@ -23,6 +23,8 @@ window.onload = function() {
 
 
 function start(){
+	
+
 	canvas.width  = 1000;
 	canvas.height = 675;
 	

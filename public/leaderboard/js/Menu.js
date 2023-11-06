@@ -1,28 +1,42 @@
 
 var sessionLeaders = [];
 var allTimeLeaders = [];
+var slotsLeaders = [];
 
+var titles = ["All Time", "Single Session", "Slots Single Session"];
+var currentLeaderboard = 0;
 
 function handleMenu(keycode){
 
+    // controlls
+    handleButtons(CANVAS_WIDTH/2-160/2, CANVAS_HEIGHT/10+10, 160, 40, "All Time", 0, changeLeaderboard);
+    handleButtons(CANVAS_WIDTH/2-265-160/2-20, CANVAS_HEIGHT/10+10, 265, 40, "Single Session", 1, changeLeaderboard);
+    handleButtons(CANVAS_WIDTH/2+160/2+20, CANVAS_HEIGHT/10+10, 250, 40, "Slots Session", 2, changeLeaderboard);
+
     // headers
-    drawText("black", '46px customfont', "Leaderboards", CANVAS_WIDTH/2-165, CANVAS_HEIGHT/10);
-    drawText("black", '32px customfont', "Single Session", CANVAS_WIDTH/8-10, CANVAS_HEIGHT/4-10);
-    drawText("black", '32px customfont', "All Time", CANVAS_WIDTH-CANVAS_WIDTH/4-60, CANVAS_HEIGHT/4-10);
+    drawText("black", '46px customfont', "Leaderboards", CANVAS_WIDTH/2-165, CANVAS_HEIGHT/10-10);
+    let width = getCharWidth(titles[currentLeaderboard], '32px customfont');
+    drawText("black", '32px customfont', titles[currentLeaderboard], CANVAS_WIDTH/2-width/2, CANVAS_HEIGHT/4+10);
 
     // borders
-    colorRectNoFill(15, CANVAS_HEIGHT/4-60, CANVAS_WIDTH/2-30, CANVAS_HEIGHT-190, "white", 1)
-    colorRectNoFill(CANVAS_WIDTH/2+15, CANVAS_HEIGHT/4-60, CANVAS_WIDTH/2-30, CANVAS_HEIGHT-190, "white", 1)
+    colorRectNoFill(15, CANVAS_HEIGHT/4-40, CANVAS_WIDTH-30, CANVAS_HEIGHT-210, "white", 1)
 
-    if(sessionLeaders){
-        for (let i = 0; i < sessionLeaders.length; i++) {
-            drawText("black", '32px customfont', sessionLeaders[i].username + ": " + sessionLeaders[i].bestSessionWinnings, CANVAS_WIDTH/20, CANVAS_HEIGHT/3+i*40-10);
+
+    if(currentLeaderboard == 0){
+        for (let i = 0; i < allTimeLeaders.length; i++) {
+            drawText("black", '32px customfont', allTimeLeaders[i].username + ": " + allTimeLeaders[i].totalWinnings, CANVAS_WIDTH/20, CANVAS_HEIGHT/3+i*40);
         }
     }
 
-    if(allTimeLeaders){
-        for (let i = 0; i < allTimeLeaders.length; i++) {
-            drawText("black", '32px customfont', allTimeLeaders[i].username + ": " + allTimeLeaders[i].totalWinnings, CANVAS_WIDTH/2+CANVAS_WIDTH/20, CANVAS_HEIGHT/3+i*40-10);
+    if(currentLeaderboard == 1){
+        for (let i = 0; i < sessionLeaders.length; i++) {
+            drawText("black", '32px customfont', sessionLeaders[i].username + ": " + sessionLeaders[i].bestSessionWinnings, CANVAS_WIDTH/20, CANVAS_HEIGHT/3+i*40);
+        }
+    }
+
+    if(currentLeaderboard == 2){
+        for (let i = 0; i < slotsLeaders.length; i++) {
+            drawText("black", '32px customfont', slotsLeaders[i].username + ": " + slotsLeaders[i].bestSessionSlots, CANVAS_WIDTH/20, CANVAS_HEIGHT/3+i*40);
         }
     }
 
@@ -31,6 +45,10 @@ function handleMenu(keycode){
 
 function goBackToMenu(){
     window.location.href = "../menu"
+}
+
+function changeLeaderboard(index){
+    currentLeaderboard = index;
 }
 
 

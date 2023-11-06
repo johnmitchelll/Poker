@@ -16,6 +16,8 @@ var slotIcons = document.createElement("img");
 slotMachine.src = "./content/slotmachine.png";
 slotIcons.src = "./content/icons.png";
 
+var userData;
+
 var prevWindowDimentions = {width:0, height:0};
 
 function drawAll(){

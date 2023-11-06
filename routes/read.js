@@ -28,8 +28,14 @@ router.post("/userData", async (request, response) => {
 router.post("/leaderboard", async (request, response) => {
     const { scoreboard } = request.body;
 
-    const onOneOffOne = changeStringChar(scoreboard, "1", "00");
-    let topTen = await User.find({$or:[{topTen: "11"},{topTen: onOneOffOne}]});
+    const allUsers = await User.find({});
+    let topTen = allUsers.filter(obj => {
+      if (obj.topTen && obj.topTen.length > scoreboard) {
+        const charAtIndex = obj.topTen.charAt(scoreboard);
+        return charAtIndex === "1";
+      }
+      return false;
+    });
 
     topTen = sortTopTen(scoreboard, topTen);
 

@@ -11,7 +11,7 @@ var startTime;
 var fpsClock;
 var fps;
 
-window.onload = function() {
+window.onload = async function() {
 	canvas = document.getElementById('gameCanvas');
 	canvasContext = canvas.getContext('2d');
 
@@ -27,6 +27,12 @@ window.onload = function() {
 		drawAll(); 
 		updateTimeSteps(); 
 	},1000/framesPerSecond);
+
+	let dbUserData = await readUser(userData.username, userData.password)
+	dbUserData = dbUserData.userDB;
+	dbUserData.password = userData.password;
+	userData = dbUserData;
+	maxCoins = userData.bestSessionSlots;
 }
 
 
@@ -39,6 +45,12 @@ function start(){
 	
 	startTime = Date.now();
 
+	userData = JSON.parse(localStorage.getItem("userData"));
+	
+	if(!userData){
+		window.location.href = "../signin";
+		return;
+	}
 
 	for (let i = 0; i < slotsItems.length; i++) {
 		for (let j = 0; j < 5; j++) {

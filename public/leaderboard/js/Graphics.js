@@ -51,3 +51,9 @@ function canvasAlign(){
 	gameCanvas.style.width = 1000*window.innerHeight/675 + "px";
 	gameCanvas.style.height = window.innerHeight + "px";
 }
+
+function getCharWidth(char, font) {
+	canvasContext.font = font;        
+	var width = canvasContext.measureText(char).width;
+    return width;
+}

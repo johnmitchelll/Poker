@@ -332,6 +332,7 @@ function handleHumanBetAmount(keyCode){
 function goToMenu(keycode){
 
     if(keycode == M){
+
         var envState = {
             deck,
             table,

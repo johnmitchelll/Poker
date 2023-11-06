@@ -21,7 +21,6 @@ app.use(
 
 app.use((req, res, next) =>{
     console.log(req.method + ':' + req.url);
-    console.log("ip"+req.ip)
     next();
 });
 

@@ -8,6 +8,8 @@ var startTime;
 var fpsClock;
 var fps;
 
+var userData;
+
 window.onload = function() {
 	canvas = document.getElementById('gameCanvas');
 	canvasContext = canvas.getContext('2d');
@@ -29,6 +31,13 @@ window.onload = function() {
 
 
 function start(){
+	userData = localStorage.getItem("userData");
+
+	if(!userData){
+		window.location.href = "../signin";
+		return;
+	}
+
 	loadImages();
 	deck = [];
 
