@@ -75,13 +75,14 @@ function spinSlots(){
         return;
     }
 
+
     insertCoin.play();
 
     winners = [false, false, false, false, false];
     slotsItemSpinning = [true, true, true];
 
     coins -= betSize;
-
+    
     setTimeout(() => {
         slotsItemsLowestY[0] = 385;
         slotsItemSpinning[0] = false;
@@ -115,14 +116,19 @@ function handleWin(){
     coins += runningTotal*betSize;
     multiplier = runningTotal;
 
-    if(multiplier > 0){
-        win.play();
-    }
 
     if(coins > maxCoins){
         updateUserStats();
         maxCoins = coins;
         console.log("NEW HIGH SCORE");
+    }
+
+    betSize /= betMultiplier;
+    betMultiplier = Math.max(10**(coins.toString().length - 4), 1);
+    betSize *= betMultiplier;
+
+    if(multiplier > 0){
+        win.play();
     }
 }
 
