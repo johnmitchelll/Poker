@@ -97,7 +97,6 @@ function bestFive(hand){
 	 }
 
 	let bestPairs = pairsInHand(hand);
-	let card;
 
 	let bestFiveCards = getHighCards(bestPairs.message, numerizeHand(hand), bestPairs.cards);
 

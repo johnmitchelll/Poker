@@ -88,8 +88,7 @@ function handleTextBoxes(x, y, w, h, textBox){
 	}else if(mouseDown && prevMouseDown == false){
 		textBox.enabled = false;
 	}
-
-
+	
 	if(textBox.enabled){
 		drawLine(10+x+textBox.iW,y+5,10+x+textBox.iW,y+h-5,2,"grey");
 	}
