@@ -167,8 +167,8 @@ function animateDeck(){
 
     if(animationScene == 1){
         for (let i = 0; i < deck.length; i++) {
-            deck[i].dx = 10;
-            deck[i].dy = 10;
+            deck[i].dx = Math.random()*(CANVAS_WIDTH-CARD_WIDTH);
+            deck[i].dy = Math.random()*(CANVAS_HEIGHT-CARD_HEIGHT);
         }
         animateDir *= -1;
         setUpNextAnimation("m", intervalTiming, animationScene+1);
@@ -192,8 +192,8 @@ function animateDeck(){
 
     if(animationScene == 4){
         for (let i = 0; i < deck.length; i++) {
-            deck[i].dx = canvas.width/2-CARD_WIDTH/2;
-            deck[i].dy = canvas.height/2-CARD_HEIGHT/2;
+            deck[i].dx = Math.random()*(CANVAS_WIDTH-CARD_WIDTH);
+            deck[i].dy = Math.random()*(CANVAS_HEIGHT-CARD_HEIGHT);
         }
 
         setUpNextAnimation("m", intervalTiming, animationScene+1)
@@ -216,8 +216,8 @@ function animateDeck(){
 
     if(animationScene == 7){
         for (let i = 0; i < deck.length; i++) {
-            deck[i].dx = CANVAS_WIDTH-CARD_WIDTH-10;
-            deck[i].dy = CANVAS_HEIGHT-CARD_HEIGHT-10;
+            deck[i].dx = Math.random()*(CANVAS_WIDTH-CARD_WIDTH);
+            deck[i].dy = Math.random()*(CANVAS_HEIGHT-CARD_HEIGHT);
         }
         setUpNextAnimation("m", intervalTiming, animationScene+1)
         return;
@@ -236,8 +236,8 @@ function animateDeck(){
      }
      if(animationScene == 10){
         for (let i = 0; i < deck.length; i++) {
-            deck[i].dx = canvas.width/2-CARD_WIDTH/2 ;
-            deck[i].dy = canvas.height/2-CARD_HEIGHT/2;
+            deck[i].dx = Math.random()*(CANVAS_WIDTH-CARD_WIDTH);
+            deck[i].dy = Math.random()*(CANVAS_HEIGHT-CARD_HEIGHT);
         }
         setUpNextAnimation("m", intervalTiming, animationScene+1)
         return;
