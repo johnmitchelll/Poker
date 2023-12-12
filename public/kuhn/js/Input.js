@@ -8,6 +8,7 @@ const ENTER = 13;
 const B = 66;
 const P = 80;
 const S = 83;
+const R = 82;
 
 function keyPressed(evt){ 
     handleKeyPressed(evt.keyCode);
@@ -97,6 +98,18 @@ function handleKeyPressed(keyCode){
 
     if(keyCode == ENTER){
         goBackToMenu();
+        return;
+    }
+
+    if(keyCode == R){
+       
+        if(rules){
+            rules = false;
+        }else{
+            rules = true;
+        }
+        
+        return;
     }
 
     handleSceneInput(keyCode);
