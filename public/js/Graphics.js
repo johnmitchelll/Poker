@@ -16,7 +16,6 @@ const SCREEN_AREA = Math.min(CANVAS_WIDTH, CANVAS_HEIGHT);
 const CARD_WIDTH = Math.max(SCREEN_AREA/8, 300/8);
 const CARD_HEIGHT = Math.max(SCREEN_AREA/5, 300/5);
 
-
 var cardsPic = document.createElement("img");
 var chipsPic = document.createElement("img");
 var chips2Pic = document.createElement("img");
@@ -44,7 +43,6 @@ function drawAll(){
 	canvasAlign();
 
 	table.display();
-
 }
 
 var cards = [{"card":"As","sx":7,"sy":7},{"card":"Ah","sx":7,"sy":115},{"card":"Ac","sx":7,"sy":222},{"card":"Ad","sx":7,"sy":329},

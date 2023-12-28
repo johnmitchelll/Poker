@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta content="utf-8" http-equiv="encoding">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no"> 
+  <meta name="apple-mobile-web-app-capable" content="yes" />
+  <title>Poker</title>
+
+  <link rel="icon" href="../imgs/icon.png" type="image/png">
+
+</head>
+
+<style>
+  * {
+    margin: 0px;
+    padding: 0px;
+    background: #121212;
+    cursor: url("../imgs/cursor.png"), auto;
+  }
+
+  @font-face {
+    font-family: customfont;
+    src: url('../imgs/font.ttf');
+  }
+
+  #container{
+    display: flex;
+    justify-content: center;
+    height: 100vh;
+    width: 100vw;
+  }
+
+  #gameCanvas {
+    align-self: center;
+  }
+
+
+</style>
+
+<body>
+
+    <div id="container">
+      <canvas id="gameCanvas"></canvas>
+    </div>
+
+    <script src="/socket.io/socket.io.js"></script>
+
+    <script src="js/Global.js"></script>
+    <script src="js/Main.js"></script>
+    <script src="js/Server.js"></script>
+    <script src="js/Helpers.js"></script>
+    <script src="js/Graphics.js"></script>
+    <script src="js/Audio.js"></script>
+    <script src="js/Input.js"></script>
+    <script src="js/Table.js"></script>
+    <script src="js/ShowDown.js"></script>
+    <script src="js/Touch.js"></script>
+    <script src="js/Scenes.js"></script>
+
+</body>
+</hmtl>
+
+

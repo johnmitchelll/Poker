@@ -25,6 +25,10 @@ const menuOptions = [
         keycode: 54
     },
     {
+        goTo:"../multiplayer",
+        keycode: 55
+    },
+    {
         goTo:"../",
         keycode: ENTER
     },
@@ -42,7 +46,8 @@ function handleMenu(keycode){
     handleButtons(CANVAS_WIDTH/2-95/2, CANVAS_HEIGHT/5+150, 95, 40, "User", 52, goToMenuOption);
     handleButtons(CANVAS_WIDTH/2-105/2, CANVAS_HEIGHT/5+200, 105, 40, "Slots", 53, goToMenuOption);
     handleButtons(CANVAS_WIDTH/2-95/2, CANVAS_HEIGHT/5+250, 95, 40, "Kuhn", 54, goToMenuOption);
+    handleButtons(CANVAS_WIDTH/2-315/2, CANVAS_HEIGHT/5+300, 315, 40, "Play Online Poker", 55, goToMenuOption);
     
 
-    handleButtons(CANVAS_WIDTH/2-120, CANVAS_HEIGHT-CANVAS_HEIGHT/4, 240, 40, "Play AI Poker", ENTER, goToMenuOption);
+    handleButtons(CANVAS_WIDTH/2-120, CANVAS_HEIGHT-CANVAS_HEIGHT/8, 240, 40, "Play AI Poker", ENTER, goToMenuOption);
 }
