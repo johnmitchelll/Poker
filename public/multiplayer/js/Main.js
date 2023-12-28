@@ -54,11 +54,8 @@ async function start(){
 		await new Promise(resolve => setTimeout(resolve, 100));
 	}
 
-
-	let name = Math.random();
-	// sendNewPlayerVals(["name"], [JSON.parse(localStorageUserData).username])
-	sendNewPlayerVals(["name"], [name]);
-	human.name = name;
+	sendNewPlayerVals(["name"], [JSON.parse(localStorageUserData).username])
+	human.name = JSON.parse(localStorageUserData).username;
 
 	human.dealer = true;
 	ai.dealer = false;
