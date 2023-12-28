@@ -82,15 +82,17 @@ async function gatherDataFromServer(){
         sendNewPlayerVals(["deal"],[false]);
 
         while (socketData.game[humanPlayer].deal == true) {
+            console.log(socketData.game[humanPlayer].deal)
             await new Promise(resolve => setTimeout(resolve, 100));
         }
 
-        dealing = false;
-
+        console.log("I AM GOING TO ATTEPT TO DEAL");
         table.seeNext();
+
+        dealing = false;
     }
 
-    if(socketData.game.winner){
+    if(socketData.game.winner && ai.cards[0] && ai.cards[1]){
        ai.cards[0].faceDown = false;
        ai.cards[1].faceDown = false;
     }

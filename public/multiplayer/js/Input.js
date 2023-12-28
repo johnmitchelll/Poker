@@ -189,14 +189,25 @@ function Stage0Input(keyCode){
         human.cards = [];
         stage = 3;
 
-        sendNewPlayerVals(["bet"],[0]);
+        let us = "p1";
+        if(socketData.game.p1.id == socketData.oponent.id){
+            us = "p2";
+        }
+
+        sendNewPlayerVals(["bet", "command"],[0, [socketData.game[us].name, "Folds"]]);
+
+        setTimer(1, 2, () => {
+            if(!socketData.game.winner){
+                sendNewPlayerVals(["command"], [-1]);
+            }
+        })
 
         sendNewOponentVals(["chips", "bet"],[ai.chips, 0]);
 
         if(socketData.game.p1.id == socketData.oponent.id){
-            sendNewGameVals(["stage", "bet", "p2Cards", "timer"], [stage, table.minBet, [], 265]);
+            sendNewGameVals(["stage", "bet", "p2Cards", "timer", "pot"], [stage, table.minBet, [], 265]);
         }else if(socketData.game.p2.id == socketData.oponent.id){
-            sendNewGameVals(["stage", "bet", "p1Cards", "timer"], [stage, table.minBet, [], 265]);
+            sendNewGameVals(["stage", "bet", "p1Cards", "timer", "pot"], [stage, table.minBet, [], 265]);
         }
 
         fold.play();
@@ -259,25 +270,19 @@ function Stage3Input(keycode){
         }else if(table.winner == "hand1" && ai.dealer){
             ai.chips += amount;
             sendNewOponentVals(["chips"], [ai.chips]);
-        }
-
-        if(table.winner == "hand2" && human.dealer){
+        }else if(table.winner == "hand2" && human.dealer){
             ai.chips += amount;
             sendNewOponentVals(["chips"], [ai.chips]);
         }else if(table.winner == "hand2" && ai.dealer){
             human.chips += amount;
             sendNewPlayerVals(["chips"], [human.chips]);
-        }
-
-        if(table.winner == "chop"){  
+        }else if(table.winner == "chop"){  
             ai.chips += Math.floor(amount/2);
             human.chips += Math.floor(amount/2);
             sendNewPlayerVals(["chips", [human.chips]]);
             sendNewOponentVals(["chips", [ai.chips]]);
         }
 
-        sendNewGameVals(["timer"], [265]);
-        
         newHand();
     }
 }

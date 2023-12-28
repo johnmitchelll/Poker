@@ -80,7 +80,7 @@ function Game(p1){
         this.pot = 0;
         this.scene = 0;
         this.stage = 0;
-        this.winner;
+        this.winner = undefined;
         this.timer = 256;
         this.command = -1;
         this.bet = 20;

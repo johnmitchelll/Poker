@@ -117,6 +117,8 @@ function Table(){
         // pot chips
         handleChipsOnBet(this.pot, CANVAS_WIDTH/2+CANVAS_WIDTH/2.75-width.width/4, CANVAS_HEIGHT/2+CARD_HEIGHT/2-122, false);
 
+        this.displayUserInfo();
+
 
         // ai and human cards
         if(ai.cards[0]){
@@ -135,9 +137,6 @@ function Table(){
                 this.board[i].display(CANVAS_WIDTH/2.5-(CARD_WIDTH*5+50*5)/2+i*(CARD_WIDTH+50)+27, CANVAS_HEIGHT/2-CARD_PIC_HEIGHT/2-35);
             }
         }
-
-        this.displayUserInfo();
-
     }
 
     this.displayUserInfo = function(){
@@ -220,6 +219,21 @@ function Table(){
             return;
         }   
 
+        let humanPlayer = "p1";
+        if(socketData.oponent.id == socketData.game.p1.id){
+            humanPlayer = "p2";
+        }
+
+        if(socketData.game[humanPlayer].deal){
+            console.log(dealing)
+
+            if(dealing){    
+                dealing = false;
+            }else{
+                return;
+            }
+        }
+
         if(human.allIn || ai.allIn){
 
             sendNewGameVals(["pot"], [table.pot]);
@@ -241,7 +255,7 @@ function Table(){
 
                 sendNewPlayerVals(["allIn", "bet", "command"], [false, 0, command]);
                 sendNewOponentVals(["allIn", "bet", "command"], [false, 0, command]);
-                sendNewGameVals(["stage", "scene", "winner"], [stage, scene, table.winner]);
+                sendNewGameVals(["stage", "scene", "winner", "timer"], [stage, scene, table.winner, 265]);
             }, 2000);
                 
             return;
@@ -317,7 +331,7 @@ function Table(){
 
         sendNewPlayerVals(["allIn", "bet", "command"], [false, 0, command]);
         sendNewOponentVals(["allIn", "bet", "command"], [false, 0, command]);
-        sendNewGameVals(["stage", "scene", "winner"], [stage, scene, table.winner]);
+        sendNewGameVals(["stage", "scene", "winner", "timer"], [stage, scene, table.winner, 265]);
     }
 }
 
@@ -519,8 +533,8 @@ function newHand(){
 
     sendNewPlayerVals(["command", "straddle", "bet", "chips"],[-1, false, 0, human.chips]);
     sendNewOponentVals(["command", "straddle", "bet", "chips"],[-1, false, 0, ai.chips]);
-    sendNewGameVals(["p1Cards", "p2Cards", "bet", "board", "pot", "winner", "scene", "stage"], 
-                    [[],[],table.minBet, [], 0, undefined, 0, 0]);
+    sendNewGameVals(["p1Cards", "p2Cards", "bet", "board", "pot", "winner", "scene", "stage", "timer"], 
+                    [[],[],table.minBet, [], 0, undefined, 0, 0, 265]);
 }
 
 function pushBlinds(){
