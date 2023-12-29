@@ -372,7 +372,7 @@ function Player(){
             amount = totalChips;
 
             if(this == ai){
-                sendNewOponentVals(["bet", "chips", "command"], [totalChips, 0, [socketData.oponent.name, "is All In"]]);
+                sendNewOponentVals(["bet", "chips", "command"], [totalChips, 0, [this.name, "is All In"]]);
 
                 setTimer(1, 2, () => {
                     if(!socketData.game.winner){
@@ -382,7 +382,7 @@ function Player(){
                 return;
             }
 
-            sendNewPlayerVals(["bet", "chips", "command"], [totalChips, 0, [socketData.oponent.name, "is All In"]]);
+            sendNewPlayerVals(["bet", "chips", "command"], [totalChips, 0, [this.name, "is All In"]]);
 
             setTimer(1, 2, () => {
                 if(!socketData.game.winner){
@@ -399,7 +399,7 @@ function Player(){
         }
 
         if(amount > table.minBet){
-            sendNewPlayerVals(["bet", "chips", "command"], [amount, this.chips, [socketData.oponent.name, "Raises:", "$"+amount]]);
+            sendNewPlayerVals(["bet", "chips", "command"], [amount, this.chips, [this.name, "Raises:", "$"+amount]]);
 
             setTimer(1, 2, () => {
                 if(!socketData.game.winner){
@@ -426,13 +426,13 @@ function Player(){
             stage = -1;
             scene = -1;
 
-            sendNewPlayerVals(["bet", "chips", "allIn", "command"], [totalChips, 0, true, [socketData.oponent.name, "Calls for His", "All In"]]);
+            sendNewPlayerVals(["bet", "chips", "allIn", "command"], [totalChips, 0, true, [this.name, "Calls for His", "All In"]]);
 
             setTimer(1, 2, () => {
                 if(!socketData.game.winner){
                     sendNewPlayerVals(["command"], [-1]);
                 }
-            })
+            });
 
             table.seeNext();
 

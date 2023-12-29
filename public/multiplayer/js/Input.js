@@ -111,7 +111,7 @@ function touchMove(evt){
 	mouseDown = true;
 }
 
-//////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+/////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
 function Scene0Input(keyCode){
 
@@ -189,12 +189,7 @@ function Stage0Input(keyCode){
         human.cards = [];
         stage = 3;
 
-        let us = "p1";
-        if(socketData.game.p1.id == socketData.oponent.id){
-            us = "p2";
-        }
-
-        sendNewPlayerVals(["bet", "command"],[0, [socketData.game[us].name, "Folds"]]);
+        sendNewPlayerVals(["bet", "command"],[0, [human.name, "Folds"]]);
 
         setTimer(1, 2, () => {
             if(!socketData.game.winner){
