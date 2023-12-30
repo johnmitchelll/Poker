@@ -15,8 +15,7 @@ function playHand(keycode){
 	handleChipsOnBet(human.bet, CANVAS_WIDTH/2-(CARD_WIDTH*2.75), CANVAS_HEIGHT-150);
 
 	// menu button
-	handleButtons(20, CANVAS_HEIGHT-60, 215, 40, "Leave Table", M, goToMenu);
-
+	handleButtons(20, CANVAS_HEIGHT-60, 215, 40, "Leave Table", ENTER, goToMenu);
 
 	// check if the other player leaves mid hand set yourself to be the dealer
 	if(!socketData.oponent){

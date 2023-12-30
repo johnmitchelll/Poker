@@ -10,13 +10,20 @@ const C = 67;
 const F = 70;
 const A = 65;
 const M = 77;
+const P = 80;
 const DELETE = 8;
 const ENTER = 13;
 var c_held = false;
 var s_held = false;
 
 function keyPressed(evt){ 
-    playHand(evt.keyCode);
+    if(menu){
+        handleMenuingInput(evt.keyCode);
+    }else{
+        playHand(evt.keyCode);
+        goToMenu(keyCode);
+    }
+
     evt.preventDefault();
 }
 
@@ -376,8 +383,20 @@ function handleHumanBetAmount(keyCode){
 }
 
 
-function goToMenu(keycode){
-    if(keycode == M){
+function handleMenuingInput(keyCode){
+
+    if(keyCode == S){
+        spectateGame();
+    }
+
+    if(keyCode == P){
+        startGame();
+    }
+
+}
+
+function goToMenu(keyCode){
+    if(keyCode == ENTER){
         window.location.href = "../menu";
     }
 }

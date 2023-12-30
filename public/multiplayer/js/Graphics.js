@@ -34,15 +34,18 @@ betFramePic.src = "../imgs/bet_frame.png";
 
 
 function drawAll(){
-
+	canvasAlign();
 	colorRect(0, 0, canvas.width, CANVAS_HEIGHT, GREEN);
+
+	if(menu){
+		handleMenu();
+		return;
+	}
 
 	//drawDeck
 	for (var i = 0; i < 5; i++) {
 		drawImageFromSpriteSheetWithRotation(cardsPic, 160, 437, CARD_PIC_WIDTH, CARD_PIC_HEIGHT,50+i*-2,50+i*-2, CARD_WIDTH, CARD_HEIGHT);
 	}
-
-	canvasAlign();
 
 	table.display();
 
@@ -53,6 +56,8 @@ function drawAll(){
 	}
 
 	// drawText("black", "32px customfont", human.name, CANVAS_WIDTH/2-475, CANVAS_HEIGHT-CANVAS_HEIGHT/8);
+
+	playHand();
 }
 
 var cards = [{"card":"As","sx":7,"sy":7},{"card":"Ah","sx":7,"sy":115},{"card":"Ac","sx":7,"sy":222},{"card":"Ad","sx":7,"sy":329},

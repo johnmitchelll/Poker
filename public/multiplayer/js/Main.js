@@ -18,7 +18,6 @@ window.onload = async function() {
 	setInterval(function(){
 		updateTimeSteps(); 
 		drawAll(); 
-		playHand();
 	},1000/framesPerSecond);
 }
 

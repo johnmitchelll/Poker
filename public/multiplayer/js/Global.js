@@ -26,3 +26,5 @@ var socket;
 var socketData;
 
 var playerOne = true;
+
+var menu = true;
